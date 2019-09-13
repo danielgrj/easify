@@ -1,0 +1,42 @@
+{
+  "editor.tabSize": 2,
+  "prettier.printWidth": 120,
+  "prettier.tabWidth": 2,
+  "prettier.useTabs": false,
+  "prettier.semi": false,
+  "prettier.singleQuote": true,
+  "prettier.bracketSpacing": true,
+  "prettier.jsxBracketSameLine": false,
+  "prettier.proseWrap": "always",
+  "prettier.eslintIntegration": true,
+  "eslint.enable": true,
+  "eslint.options": {
+    "extends": [
+      "prettier"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2019,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "env": {
+      "es6": true,
+      "node": true,
+      "jasmine": true,
+      "jest": true,
+      "browser": true,
+      "mocha": true,
+      "mongo": true,
+      "hbs": true,
+      "handlebars": true
+    },
+    "rules": {
+      "no-console": "off",
+      "prefer-const": [
+        "warn"
+      ]
+    }
+  },
+}
