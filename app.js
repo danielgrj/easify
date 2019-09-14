@@ -45,8 +45,8 @@ app.set('view engine', 'hbs')
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRoutes)
+app.get('/auth/logout', logoutUser)
 app.use('/auth/', isLoggedOut, authRoutes)
-app.use('/auth/', logoutUser)
 
 app.listen(process.env.PORT, (req, res) => {
   console.log(`Server is up on http://localhost:${process.env.PORT}`)

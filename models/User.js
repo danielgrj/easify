@@ -7,7 +7,7 @@ const userSchema = new Schema(
     email: {
       type: String,
       unique: true,
-      require: true
+      sparse: true
     },
     avatar: String,
     isEmployee: {

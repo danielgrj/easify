@@ -14,6 +14,7 @@ exports.getLoginForm = (re1, res) => {
 exports.getEmployeeSignupForm = (req, res) => {
   const config = {
     facebookAction: '/auth/emp/facebook',
+    googleAction: '/auth/emp/google',
     isEmployee: true
   }
   res.render('auth/signup', config)
@@ -22,7 +23,8 @@ exports.getEmployeeSignupForm = (req, res) => {
 exports.getEmployeerSignupForm = (req, res) => {
   const config = {
     action: '/auth/signup/',
-    facebookAction: '/auth/facebook'
+    facebookAction: '/auth/facebook',
+    googleAction: '/auth/google'
   }
   res.render('auth/signup', config)
 }
