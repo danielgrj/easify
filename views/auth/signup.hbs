@@ -1,0 +1,26 @@
+<div class="container">
+  <form action="/auth/signup" method="post">
+    <div>
+      <label for="name">Name: </label>
+      <input id="name" type="text" name="name">
+    </div>
+    <div>
+      <label for="email">Email: </label>
+      <input type="email" name="email" id="email" required>
+    </div>
+    <div>
+      <label for="password">Password: </label>
+      <input type="password" name="password" id="password" required>
+    </div>
+    {{#if isEmployee}}
+    <div style="display: none">
+      <input type="hidden" name="isEmployee" value="true">
+    </div>
+    {{/if}}
+    <div>
+      <input type="submit" value="Sign up">
+    </div>
+  </form>
+  <a href="{{facebookAction}}">Log in facebook</a>
+  <a href="{{googleAction}}">Log in google</a>
+</div>
