@@ -1,0 +1,28 @@
+<div class="container">
+  <form action="{{action}}" method="post">
+    <div>
+      <label for="firstName">First name: </label>
+      <input id="firstName" type="text" name="firstName">
+    </div>
+    <div>
+      <label for="lastName">Last name: </label>
+      <input id="lastName" type="text" name="lastName">
+    </div>
+    <div>
+      <label for="email">Email: </label>
+      <input type="email" name="email" id="email" required>
+    </div>
+    <div>
+      <label for="password">Password: </label>
+      <input type="password" name="password" id="password" required>
+    </div>
+    {{#if isEmployee}}
+    <div style="display: none">
+      <input type="hidden" name="isEmployee" value="true">
+    </div>
+    {{/if}}
+    <div>
+      <input type="submit" value="Sign up">
+    </div>
+  </form>
+</div>
