@@ -15,6 +15,7 @@ const { logoutUser } = require('./controllers/auth.controller')
 const indexRoutes = require('./routes/index')
 const authRoutes = require('./routes/auth')
 const locationRoutes = require('./routes/locations')
+const appoimentsRoutes = require('./routes/appoiments')
 
 const app = express()
 
@@ -50,6 +51,7 @@ app.use('/', indexRoutes)
 app.get('/auth/logout', logoutUser)
 app.use('/auth/', isLoggedOut, authRoutes)
 app.use('/locations', locationRoutes)
+app.use('/appoiments', appoimentsRoutes)
 
 app.listen(process.env.PORT, (req, res) => {
   console.log(`Server is up on http://localhost:${process.env.PORT}`)
