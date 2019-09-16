@@ -30,8 +30,8 @@ exports.getEmployeerSignupForm = (req, res) => {
 }
 
 exports.createUser = async (req, res, next) => {
-  const { email, firstName, lastName, password, isEmployee } = req.body
-  const user = await User.register({ email, firstName, lastName, isEmployee }, password)
+  const { email, name, password, isEmployee } = req.body
+  const user = await User.register({ email, name, isEmployee }, password)
 
   if (isEmployee) {
     await Occupation.create({ userId: user._id })
