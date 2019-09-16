@@ -11,6 +11,8 @@ const passport = require('./config/passport')
 
 const indexRoutes = require('./routes/index')
 const authRoutes = require('./routes/auth')
+const locationRoutes = require('./routes/locations')
+const appoimentsRoutes = require('./routes/appoiments')
 
 const app = express()
 
@@ -39,9 +41,12 @@ app.use(cookieParser())
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
+hbs.registerPartials(path.join(__dirname, '/views/partials'))
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRoutes)
+app.use('/locations', locationRoutes)
+app.use('/appoiments', appoimentsRoutes)
 app.use('/auth/', authRoutes)
 
 app.listen(process.env.PORT, (req, res) => {
