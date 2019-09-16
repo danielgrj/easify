@@ -14,6 +14,7 @@ const { logoutUser } = require('./controllers/auth.controller')
 
 const indexRoutes = require('./routes/index')
 const authRoutes = require('./routes/auth')
+const locationRoutes = require('./routes/locations')
 
 const app = express()
 
@@ -42,11 +43,13 @@ app.use(cookieParser())
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
+hbs.registerPartials(path.join(__dirname, '/views/partials'))
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRoutes)
 app.get('/auth/logout', logoutUser)
 app.use('/auth/', isLoggedOut, authRoutes)
+app.use('/locations', locationRoutes)
 
 app.listen(process.env.PORT, (req, res) => {
   console.log(`Server is up on http://localhost:${process.env.PORT}`)
