@@ -4,15 +4,21 @@ const occupationSchema = new Schema(
   {
     type: {
       type: String,
-      require: true,
       enum: ['PLUMBER', 'MECHANIC', 'ELECTRICIST', 'LOCKSMITH', 'CARETAKER']
+    },
+    userId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      unique: true
     },
     raiting: Number,
     timetable: {
       start: String,
       end: String
     },
-    aboutMe: String
+    location: Schema.Types.ObjectId,
+    aboutMe: String,
+    active: Boolean
   },
   {
     timestamps: true,

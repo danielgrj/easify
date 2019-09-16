@@ -9,14 +9,12 @@ const userSchema = new Schema(
       unique: true,
       sparse: true
     },
+    facebookId: String,
+    googleId: String,
     avatar: String,
     isEmployee: {
       type: Boolean,
       default: false
-    },
-    occupationId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Occupation'
     }
   },
   {
