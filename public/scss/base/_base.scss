@@ -1,0 +1,16 @@
+.avatar {
+  overflow: hidden;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+}
+
+.avatar > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bg-appoiment {
+  background-color: #a5a5af;
+}
