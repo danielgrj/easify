@@ -1,4 +1,5 @@
 const Appoiment = require('./../models/Appoiment')
+const Location = require('./../models/Location')
 const moment = require('moment')
 
 exports.createAppoiment = async (req, res) => {

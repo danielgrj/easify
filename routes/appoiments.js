@@ -5,7 +5,8 @@ const {
   editAppoiment,
   getAllAppoiments,
   getOneAppoiment,
-  deleteAppoiment
+  deleteAppoiment,
+  test
 } = require('./../controllers/appoiments.controller')
 
 router.get('/', catchErrors(getAllAppoiments('client')))
