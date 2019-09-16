@@ -8,6 +8,6 @@ exports.isLoggedIn = (req, res, next) => (req.isAuthenticated() ? next() : res.r
 
 exports.isLoggedOut = (req, res, next) => {
   if (!req.isAuthenticated()) return next()
-  if (req.user.isEmployee) return res.redirect('/user/emp/profile')
+  if (req.user.isEmployee) if (req.user.isEmployee) return res.redirect('/user/emp/profile')
   res.redirect('/search')
 }
