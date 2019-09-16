@@ -13,6 +13,9 @@
 .bg-appoiment {
   background-color: #a5a5af; }
 
+.date-container {
+  height: 240px !important; }
+
 .is-changing {
   transition: all 0.3s ease-in-out; }
 

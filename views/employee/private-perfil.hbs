@@ -48,36 +48,38 @@
   <div class="container">
     <div class="columns is-desktop">
       {{#each appoiments}}
-      <div class="column columns is-mobile bg-appoiment">
-        <div class="column is-narrow">
-          <figure class="avatar">
-            <img src="{{client.avatar}}" alt="{{client.name}}" class="is-rounded">
-          </figure>
-        </div>
-        <div class="column">
-          <h4 class="title is-4">{{client.name}}</h4>
-          <h5 class="subtitle is-5">
-            <span class="icon is-medium"><i class="far fa-clock"></i></span>
-            <span>{{date}}</span>
-          </h5>
-          <h6 class="subtitle is-6">
-            {{address}}
-          </h6>
-          <div>
-            {{#if active}}
+      <div class="column date-container is-desktop">
+        <div class="columns bg-appoiment">
+          <div class="column is-narrow">
+            <figure class="avatar">
+              <img src="{{client.avatar}}" alt="{{client.name}}" class="is-rounded">
+            </figure>
+          </div>
+          <div class="column">
+            <h4 class="title is-4">{{client.name}}</h4>
+            <h5 class="subtitle is-5">
+              <span class="icon is-medium"><i class="far fa-clock"></i></span>
+              <span>{{date}}</span>
+            </h5>
+            <h6 class="subtitle is-6">
+              {{address}}
+            </h6>
             <div>
-              <p class="button is-primary">Active</p>
-            </div>
-            {{else}}
-            <div class="columns is-mobile">
-              <div class="column is-narrow">
-                <a href="" class="button is-info">Accept</a>
+              {{#if active}}
+              <div>
+                <p class="button is-primary">Active</p>
               </div>
-              <div class="column is-narrow">
-                <a href="" class="button is-danger">Decline</a>
+              {{else}}
+              <div class="columns is-mobile">
+                <div class="column is-narrow">
+                  <a href="" class="button is-info">Accept</a>
+                </div>
+                <div class="column is-narrow">
+                  <a href="" class="button is-danger">Decline</a>
+                </div>
               </div>
+              {{/if}}
             </div>
-            {{/if}}
           </div>
         </div>
       </div>
@@ -85,14 +87,15 @@
     </div>
   </div>
 </section>
-<section class="section is-changing" id="emp-chart" style="display: none  ">
+<section class="section is-changing" id="emp-chart" style="display: none">
   <div class="container">
     <div>
       <h4 class="subtitle is-4">Last Month activity</h4>
       <div class="">
-        <canvas class="last-month-activity"></canvas>
+        <canvas id="last-month-activity"></canvas>
       </div>
     </div>
   </div>
 </section>
+<script src="https://cdnjs.com/libraries/Chart.js"></script>
 <script src="/js/emp-private-perfil.js"></script>
