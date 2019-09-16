@@ -8,32 +8,35 @@ const {
   finishSignup,
   loginUser,
   logoutUser,
-  setEmployee
+  setEmployee,
+  getOccupationForm,
+  fillOccupation
 } = require('./../controllers/auth.controller')
-const { catchErrors, isLoggedIn } = require('./../middleware')
+const { catchErrors, isLoggedIn, isLoggedOut } = require('./../middleware')
 
-router.get('/signup', getEmployeerSignupForm)
-router.post('/signup', catchErrors(createUser))
+router.get('/signup', isLoggedOut, getEmployeerSignupForm)
+router.post('/signup', isLoggedOut, catchErrors(createUser))
 
-router.get('/emp/signup', getEmployeeSignupForm)
+router.get('/emp/signup', isLoggedOut, getEmployeeSignupForm)
 
-router.get('/facebook', passport.authenticate('facebook', { scope: ['email'] }))
-router.get('/emp/facebook/', setEmployee, passport.authenticate('facebook', { scope: ['email'] }))
-router.get(
-  '/facebook/callback',
-  (req, res, next) => passport.authenticate('facebook', finishSignup(req, res, next))(req, res, next),
-  loginUser
+router.get('/facebook', isLoggedOut, passport.authenticate('facebook', { scope: ['email'] }))
+router.get('/emp/facebook/', isLoggedOut, setEmployee, passport.authenticate('facebook', { scope: ['email'] }))
+router.get('/facebook/callback', isLoggedOut, (req, res, next) =>
+  passport.authenticate('facebook', finishSignup(req, res, next))(req, res, next)
 )
 
-router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }))
-router.get('/emp/google/', setEmployee, passport.authenticate('google', { scope: ['profile'] }))
-router.get(
-  '/google/callback',
-  (req, res, next) => passport.authenticate('google', finishSignup(req, res, next))(req, res, next),
-  loginUser
+router.get('/google', isLoggedOut, passport.authenticate('google', { scope: ['profile', 'email'] }))
+router.get('/emp/google/', isLoggedOut, setEmployee, passport.authenticate('google', { scope: ['profile'] }))
+router.get('/google/callback', isLoggedOut, (req, res, next) =>
+  passport.authenticate('google', finishSignup(req, res, next))(req, res, next)
 )
 
-router.get('/login', getLoginForm)
-router.post('/login', passport.authenticate('local'), loginUser)
+router.get('/login', isLoggedOut, getLoginForm)
+router.post('/login', isLoggedOut, passport.authenticate('local'), loginUser)
+
+router.get('/emp/comp', getOccupationForm)
+router.post('/emp/comp', catchErrors(fillOccupation))
+
+router.get('/logout', isLoggedIn, logoutUser)
 
 module.exports = router
