@@ -1,9 +1,9 @@
 const User = require('./../models/User')
 const Occupation = require('./../models/Occupation')
 
-const loginRedirect = (user, next, res) => err => {
+const signupRedirect = (req, res, next) => err => {
   if (err) return next(err)
-  if (user.isEmployee) return res.redirect('/auth/emp/profile')
+  if (req.user.isEmployee) return res.redirect('/auth/emp/comp')
   res.redirect('/search')
 }
 
@@ -30,10 +30,14 @@ exports.getEmployeerSignupForm = (req, res) => {
 }
 
 exports.createUser = async (req, res, next) => {
-  const { email, firstName, lastName, password, isEmployee } = req.body
-  const user = await User.register({ email, firstName, lastName, isEmployee }, password)
+  const { email, name, password, isEmployee } = req.body
+  const user = await User.register({ email, name, isEmployee }, password)
 
-  req.login(user, loginRedirect(user, next, res))
+  if (isEmployee) {
+    await Occupation.create({ userId: user._id })
+  }
+
+  req.login(user, signupRedirect(req, res, next))
 }
 
 exports.setEmployee = (req, res, next) => {
@@ -47,16 +51,40 @@ exports.finishSignup = (req, res, next) => async (err, user, info) => {
   if (req.app.locals.isEmployee) {
     await User.findByIdAndUpdate(user.id, { isEmployee: true })
     delete req.app.locals.isEmployee
+    user.isEmployee = true
+
+    const occupation = await Occupation.findOne({ userId: user._id })
+    if (!occupation) {
+      await Occupation.create({ userId: user._id })
+    }
   }
 
-  req.login(user, loginRedirect(user, next, res))
+  req.login(user, signupRedirect(req, res, next))
+}
+
+exports.getOccupationForm = async (req, res) => {
+  res.render('auth/signup-emp')
+}
+
+exports.fillOccupation = async (req, res) => {
+  const { type, start, end, aboutMe, location } = req.body
+  let active = false
+
+  console.log(req.body)
+
+  if ((type, start, end, aboutMe, location)) {
+    active = true
+  }
+
+  await Occupation.findOneAndUpdate({ userId: req.user.id }, { type, timetable: { start, end }, aboutMe, active })
+
+  res.redirect('/user/emp/profile')
 }
 
 exports.loginUser = (req, res) => {
   const { isEmployee } = req.user
-
   if (isEmployee) {
-    return res.redirect('/auth/emp/profile')
+    return res.redirect('/user/emp/profile')
   }
   res.redirect('/search')
 }

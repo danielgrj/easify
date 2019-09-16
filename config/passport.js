@@ -18,7 +18,12 @@ passport.use(
       const user = await User.findOne({ facebookId })
 
       if (user) return cb(null, user)
-      const newUser = await User.create({ name, email: emails ? emails[0].value : undefined, avatar: photos[0].value })
+      const newUser = await User.create({
+        facebookId,
+        name,
+        email: emails ? emails[0].value : undefined,
+        avatar: photos[0].value
+      })
       cb(null, newUser)
     }
   )
@@ -36,7 +41,12 @@ passport.use(
       const user = await User.findOne({ googleId })
 
       if (user) return cb(null, user)
-      const newUser = await User.create({ name, avatar: photos[0].value, email: emails ? emails[0].value : undefined })
+      const newUser = await User.create({
+        googleId,
+        name,
+        avatar: photos[0].value,
+        email: emails ? emails[0].value : undefined
+      })
       cb(null, newUser)
     }
   )

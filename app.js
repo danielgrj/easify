@@ -9,9 +9,6 @@ const hbs = require('hbs')
 const session = require('express-session')
 const passport = require('./config/passport')
 
-const { isLoggedOut } = require('./middleware')
-const { logoutUser } = require('./controllers/auth.controller')
-
 const indexRoutes = require('./routes/index')
 const authRoutes = require('./routes/auth')
 const locationRoutes = require('./routes/locations')
@@ -48,10 +45,9 @@ hbs.registerPartials(path.join(__dirname, '/views/partials'))
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRoutes)
-app.get('/auth/logout', logoutUser)
-app.use('/auth/', isLoggedOut, authRoutes)
 app.use('/locations', locationRoutes)
 app.use('/appoiments', appoimentsRoutes)
+app.use('/auth/', authRoutes)
 
 app.listen(process.env.PORT, (req, res) => {
   console.log(`Server is up on http://localhost:${process.env.PORT}`)
