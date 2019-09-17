@@ -4,7 +4,8 @@ const Occupation = require('./../models/Occupation')
 const signupRedirect = (req, res, next) => err => {
   if (err) return next(err)
   if (req.user.isEmployee) return res.redirect('/auth/emp/comp')
-  res.redirect('/search')
+  // res.redirect('/search')
+  res.redirect('/client/searchClient')
 }
 
 exports.getLoginForm = (re1, res) => {
@@ -83,10 +84,12 @@ exports.fillOccupation = async (req, res) => {
 
 exports.loginUser = (req, res) => {
   const { isEmployee } = req.user
+  console.log(req.user.name)
   if (isEmployee) {
     return res.redirect('/user/emp/profile')
   }
-  res.redirect('/search')
+  // res.redirect('/search')
+  res.redirect('/client/searchClient')
 }
 
 exports.logoutUser = (req, res) => {
