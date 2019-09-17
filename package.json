@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "css-build": "node-sass --omit-source-map-url public/scss/main.scss public/css/style.css",
+    "css-watch": "npm run css-build -- --watch"
   },
   "author": "Daniel, Gisela",
   "license": "MIT",
@@ -28,6 +30,8 @@
     "passport-local-mongoose": "^5.0.1"
   },
   "devDependencies": {
+    "bulma": "^0.7.5",
+    "node-sass": "^4.12.0",
     "nodemon": "^1.19.2"
   }
 }

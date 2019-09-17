@@ -7,7 +7,7 @@ const raitingSchema = new Schema(
       required: true,
       ref: 'User'
     },
-    employee: {
+    employeeId: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: 'User'

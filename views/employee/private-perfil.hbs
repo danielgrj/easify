@@ -1,0 +1,103 @@
+<nav>
+  <div class="tabs is-toggle is-toggle-rounded is-centered">
+    <ul>
+      <li class="is-active" id="info-button">
+        <a>
+          <span class="icon is-small"><i class="fas fa-user"></i></span>
+          <span>Info</span>
+        </a>
+      </li>
+      <li id="appoiments-button">
+        <a>
+          <span class="icon is-small"><i class="fas fa-calendar-day"></i></span>
+          <span>Appoiments</span>
+        </a>
+      </li>
+      <li id="chart-button">
+        <a>
+          <span class="icon is-small"><i class="fas fa-chart-pie"></i></span>
+          <span>Analitycs</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+</nav>
+<section class="section is-changing" id="emp-info">
+  <div class="container">
+    <div class="columns is-desktop is-centered is-vcentered">
+      <div class="column is-narrow">
+        <figure class="avatar">
+          <img src="{{user.avatar}}" alt="{{user.name}}">
+        </figure>
+      </div>
+      <div class="column">
+        <h2 class="title is-2">{{user.name}}</h2>
+        <div>
+          <p><span>{{occupation.type}}</span></p>
+          <p><span>{{user.email}}</span></p>
+        </div>
+        <div>
+          <a href="/auth/emp/edit" class="button is-warning">Edit</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section is-changing" id="emp-appoiments" style="display: none ">
+  <div class="container">
+    <div class="columns is-desktop">
+      {{#each appoiments}}
+      <div class="box">
+        <article class="media">
+          <div class="media-left">
+            <figure class="image is-64x64">
+              <img src="{{clientId.avatar}}" alt="{{clientId.name}}">
+            </figure>
+          </div>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>{{clientId.name}}</strong>
+                <br>
+                <small>{{date}}</small>
+                <br>
+                {{location.address}}
+              </p>
+            </div>
+            <nav class="level is-mobile">
+              <div class="level-left">
+                {{#if active}}
+                <a href="#{{_id}}" class="level-item button is-link danger">
+                  Accept
+                </a>
+                <a href="#{{_id}}" class="level-item button is-danger cancel">
+                  Cancel
+                </a>
+                <a href="#{{_id}}" class="level-item button is-danger edit">
+                  Edit
+                </a>
+                {{else}}
+                <span class="level-item tag is-primary is-medium">Accepted</span>
+                {{/if}}
+              </div>
+            </nav>
+          </div>
+        </article>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+<section class="section is-changing" id="emp-chart" style="display: none">
+  <div class="container">
+    <div>
+      <h4 class="subtitle is-4">Last Month activity</h4>
+      <div class="">
+        <canvas id="last-month-activity"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+<script src="/js/emp-private-perfil.js"></script>

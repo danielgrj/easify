@@ -17,7 +17,11 @@ const appoimentSchema = new Schema(
       required: true,
       ref: 'Location'
     },
-    date: Date
+    date: Date,
+    active: {
+      type: Boolean,
+      default: false
+    }
   },
   {
     timestamps: true,
