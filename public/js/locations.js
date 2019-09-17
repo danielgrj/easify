@@ -5,6 +5,7 @@ const showAppoinmentBtn = document.querySelector('#appoinment')
 const bookBtn = document.querySelector('#book-button')
 const cancelBookBtn = document.querySelector('#cancel-book-button')
 const bookCard = document.querySelector('#book-card')
+const closeBtn = document.querySelector('#close')
 const locationBtn = document.querySelector('#location-btn')
 const locationBtnCancel = document.querySelector('#location-cancel')
 const locationContainer = document.querySelector('#location-container')
@@ -12,6 +13,10 @@ const locationSubmit = document.querySelector('#location-submit')
 const locationsSelect = document.querySelector('#locations-select')
 const selectContainer = document.querySelector('#select-container')
 const dateInput = document.querySelector('#date')
+
+const closeAppoinment = () => {
+  bookCard.classList.remove('is-active')
+}
 
 showAppoinmentBtn.onclick = () => {
   bookCard.classList.add('is-active')
@@ -24,13 +29,10 @@ bookBtn.onclick = async () => {
 
   const appoinment = await appoinmentsApi.createOne({ date, locationId }, `user/${employeeId}`)
   bookCard.classList.remove('is-active')
-
-  console.log(appoinment)
 }
 
-cancelBookBtn.onclick = () => {
-  bookCard.classList.remove('is-active')
-}
+cancelBookBtn.onclick = closeAppoinment
+closeBtn.onclick = closeAppoinment
 
 locationBtn.onclick = () => {
   locationBtn.style.display = 'none'
@@ -54,8 +56,6 @@ locationSubmit.onclick = async () => {
     lat,
     lng
   })
-
-  console.log(location)
 
   locationsSelect.innerHTML += `<option value="${location._id}"  selected>${location.address}</option>`
   locationBtn.style.display = ''
