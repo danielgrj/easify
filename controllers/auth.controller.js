@@ -4,8 +4,8 @@ const Occupation = require('./../models/Occupation')
 const signupRedirect = (req, res, next) => err => {
   if (err) return next(err)
   if (req.user.isEmployee) return res.redirect('/auth/emp/comp')
-  // res.redirect('/search')
-  res.redirect('/client/searchClient')
+   res.redirect('/search')
+  // res.redirect('/client/searchClient')
 }
 
 exports.getLoginForm = (re1, res) => {
@@ -88,8 +88,8 @@ exports.loginUser = (req, res) => {
   if (isEmployee) {
     return res.redirect('/user/emp/profile')
   }
-  // res.redirect('/search')
-  res.redirect('/client/searchClient')
+  res.redirect('/search')
+  // res.redirect('/client/searchClient')
 }
 
 exports.logoutUser = (req, res) => {
