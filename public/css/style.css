@@ -5,6 +5,15 @@
   width: 120px;
   height: 120px; }
 
+.is-justify-centered {
+  justify-content: center; }
+
+.is-align-centered {
+  align-items: center; }
+
+.is-f-column {
+  flex-direction: column; }
+
 .avatar > img {
   width: 100%;
   height: 100%;
@@ -15,6 +24,9 @@
 
 .date-container {
   height: 240px !important; }
+
+.address {
+  width: 480px; }
 
 .is-changing {
   transition: all 0.3s ease-in-out; }
