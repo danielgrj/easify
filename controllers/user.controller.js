@@ -31,8 +31,13 @@ exports.getEmpPublicProfile = async (req, res) => {
   const employee = await User.findById(id)
   const occupation = await Occupation.findOne({ userId: id })
   const ratings = await Raiting.find({ employeeId: id })
+  const locations = await Locations.find({ userId: user.id })
+  const locationsData = {
+    locations,
+    areLocations: !!locations.length
+  }
 
-  res.render('user/emp-public-profile', { user, employee, occupation, ratings })
+  res.render('user/emp-public-profile', { user, employee, occupation, ratings, locationsData })
 }
 
 exports.uploadProfileImage = async (req, res) => {

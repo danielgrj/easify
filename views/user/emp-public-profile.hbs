@@ -1,17 +1,15 @@
 <section class="section">
   <div class="container">
-    <div class="columns">
-      <div class="column is-narrow">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-narrow is-flex is-align-centered is-f-column">
         <figure class="avatar">
           <img src="{{employee.avatar}}" alt="{{employee.name}}">
         </figure>
-      </div>
-      <div class="column">
         <h2 class="title is-2">{{employee.name}}</h2>
-        <h3 class="subtitle is-3">{{occupation.type}}</h3>
+        <h4 class="subtitle is-4">{{occupation.type}}</h4>
       </div>
     </div>
-    <div class="columns is-mobile">
+    <div class="columns is-mobile has-text-centered	">
       <div class="column">
         <h2 class="title is-2">55</h2>
         <h3 class="subtitle is-3">Consultations</h3>
@@ -26,9 +24,7 @@
         <h3 class="subtitle is-3">Raiting</h3>
       </div>
       <div class="column">
-        <h2 class="title is-2">2<span class="icon">
-            <i class="fas fa-star"></i>
-          </span></h2>
+        <h2 class="title is-2">2 years</h2>
         <h3 class="subtitle is-3">Time</h3>
       </div>
     </div>
@@ -39,7 +35,10 @@
 </section>
 <section class="section">
   <div class="container">
-    <div class="modal">
+    <div>
+      <button class="button is-primary" id="appoinment">Book an appoiment</button>
+    </div>
+    <div class="modal" id="book-card">
       <div class="modal-background"></div>
       <div class="modal-card">
         <header class="modal-card-head">
@@ -47,11 +46,11 @@
           <button class="delete" aria-label="close"></button>
         </header>
         <section class="modal-card-body">
-          {{> appoinment}}
+          {{> appoinment locationsData}}
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-success">Book</button>
-          <button class="button">Cancel</button>
+          <button class="button is-success" id="book-button" profileId="{{employee._id}}">Book</button>
+          <button class="button" id="cancel-book-button">Cancel</button>
         </footer>
       </div>
     </div>
@@ -114,3 +113,9 @@
     </article>
   </div>
 </section>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/js/axios-requests.js"></script>
+<script>
+
+</script>
+<script src="/js/locations.js"></script>
