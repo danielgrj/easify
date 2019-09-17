@@ -11,7 +11,10 @@ const userSchema = new Schema(
     },
     facebookId: String,
     googleId: String,
-    avatar: String,
+    avatar: {
+      type: String,
+      default: 'http://chrisalensula.org/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png'
+    },
     isEmployee: {
       type: Boolean,
       default: false

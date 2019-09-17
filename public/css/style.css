@@ -1,4 +1,68 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,700");
+.bg-img {
+  /* background-image: url('../images/intro.jpg') ; */
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover; }
+
+.img-responsive {
+  display: block;
+  max-width: 100%;
+  height: auto; }
+
+.button-container {
+  display: inline-block;
+  position: relative; }
+
+.button-container a {
+  position: absolute;
+  bottom: 4em;
+  right: 4em;
+  background-color: #003e8f;
+  border-radius: 1.5em;
+  color: white;
+  padding: 1em 2.5em; }
+
+.button-container h1 {
+  bottom: 4em;
+  position: absolute;
+  right: 11.5em; }
+
+.btnLogin {
+  background-color: #59acf0; }
+
+.btnSign {
+  background-color: #59acf0;
+  left: 1em; }
+
+#seccion2 {
+  background-color: #cfcfcf; }
+
+#seccion3 {
+  background-color: #dfe7f0; }
+
+form {
+  display: inline-block;
+  text-align: center; }
+
+.button-container a {
+  position: relative;
+  bottom: 0em;
+  right: -2em;
+  background-color: #003e8f;
+  color: white;
+  font-size: 1em;
+  padding: 1em 1.5em;
+  margin-left: 10em;
+  text-transform: uppercase;
+  border-color: white;
+  border-radius: 1.5em; }
+
+.button-container h1 {
+  bottom: 4em;
+  position: relative; }
+
 .avatar {
   overflow: hidden;
   border-radius: 50%;
