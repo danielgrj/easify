@@ -2,7 +2,7 @@ const Location = require('./../models/Location')
 
 exports.createLocation = async (req, res) => {
   const { address, lat, lng } = req.body
-  await Location.create({ address, coordinates: { lat, lng }, userId: req.user.id })
+  const location = await Location.create({ address, coordinates: { lat, lng }, userId: req.user.id })
   res.status(201).send(location)
 }
 
