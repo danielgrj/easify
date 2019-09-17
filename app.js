@@ -51,7 +51,7 @@ app.use('/', indexRoutes)
 app.use('/auth/', authRoutes)
 app.use('/locations', isLoggedIn, locationRoutes)
 app.use('/appoiments', isLoggedIn, appoimentsRoutes)
-app.use('/', isLoggedIn, raitingsRoutes)
+app.use('/raitings', isLoggedIn, raitingsRoutes)
 
 app.listen(process.env.PORT, (req, res) => {
   console.log(`Server is up on http://localhost:${process.env.PORT}`)
