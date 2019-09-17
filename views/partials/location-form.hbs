@@ -1,0 +1,43 @@
+<div class="field">
+  <label for="" class="label">Address: </label>
+  <div class="control">
+    <div class="container">
+      <div id="search" class="container input"></div>
+    </div>
+    <input type="hidden" name="address" id="address" class="input" value="address">
+  </div>
+</div>
+<div class="field" style="display: none">
+  <label for="" class="label">Coordinates: </label>
+  <div class="control">
+    <input type="hidden" name="id" id="id" value="{{_id}}">
+    <input type="hidden" name="lat" id="lat" class="input" value="{{coordinates.lat}}">
+    <input type="hidden" name="lng" id="lng" class="input" value="{{coordinates.lng}}">
+  </div>
+</div>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.js'></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v3.1.3/mapbox-gl-directions.js'></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.6/mapbox-gl-geocoder.min.js'></script>
+<script>
+  const lngInput = document.getElementById("lng");
+  const latInput = document.getElementById("lat");
+  const addressInput = document.getElementById("address")
+
+  mapboxgl.accessToken =
+    "pk.eyJ1IjoiYXRsMTUxIiwiYSI6ImNqeGRqbTlnMDBlcXIzeW8wYnk3Nnp6NTEifQ.074IOX-MXu4hf1p5A-aJZQ";
+  const map = new mapboxgl.Map({ container: "map", style: "mapbox://styles/mapbox/streets-v11" });
+  const geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken
+  });
+
+
+  document.getElementById("search").appendChild(geocoder.onAdd(map))
+  geocoder.on("result", res => {
+    console.log(res)
+    const { place_name, center: [lng, lat] } = res.result;
+    lngInput.value = lng;
+    latInput.value = lat;
+    address.value = place_name
+  });
+  map.addControl(new mapboxgl.NavigationControl());
+</script>

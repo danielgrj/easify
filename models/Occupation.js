@@ -9,14 +9,18 @@ const occupationSchema = new Schema(
     userId: {
       type: Schema.Types.ObjectId,
       required: true,
-      unique: true
+      unique: true,
+      ref: 'User'
     },
     raiting: Number,
     timetable: {
       start: String,
       end: String
     },
-    location: Schema.Types.ObjectId,
+    address: {
+      type: Schema.Types.ObjectId,
+      ref: 'Location'
+    },
     aboutMe: String,
     active: Boolean
   },
