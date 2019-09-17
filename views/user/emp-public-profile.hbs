@@ -1,0 +1,116 @@
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-narrow">
+        <figure class="avatar">
+          <img src="{{employee.avatar}}" alt="{{employee.name}}">
+        </figure>
+      </div>
+      <div class="column">
+        <h2 class="title is-2">{{employee.name}}</h2>
+        <h3 class="subtitle is-3">{{occupation.type}}</h3>
+      </div>
+    </div>
+    <div class="columns is-mobile">
+      <div class="column">
+        <h2 class="title is-2">55</h2>
+        <h3 class="subtitle is-3">Consultations</h3>
+      </div>
+      <div class="column">
+        <h2 class="title is-2">
+          {{occupation.raiting}}
+          <span class="icon">
+            <i class="fas fa-star"></i>
+          </span>
+        </h2>
+        <h3 class="subtitle is-3">Raiting</h3>
+      </div>
+      <div class="column">
+        <h2 class="title is-2">2<span class="icon">
+            <i class="fas fa-star"></i>
+          </span></h2>
+        <h3 class="subtitle is-3">Time</h3>
+      </div>
+    </div>
+    <div class="columns">
+      <a href="#" class="button is-info">View on map</a>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Book an appoinment</p>
+          <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          {{> appoinment}}
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success">Book</button>
+          <button class="button">Cancel</button>
+        </footer>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    {{#each raitings}}
+    <article class="media">
+      <figure class="media-left">
+        <p class="image is-64x64">
+          <img src="https://bulma.io/images/placeholders/128x128.png">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <strong>{{userId}}</strong> <small>{{userId.number}}
+              <span class="icon">
+                <i class="fas fa-star"></i>
+              </span>
+            </small>
+            <br>
+            {{content}}
+          </p>
+        </div>
+        <nav class="level is-mobile">
+          <div class="level-left">
+            <a class="level-item">
+              <span class="icon is-small"><i class="fas fa-reply"></i></span>
+            </a>
+            <a class="level-item">
+              <span class="icon is-small"><i class="fas fa-retweet"></i></span>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </article>
+    {{/each}}
+    <article class="media">
+      <figure class="media-left">
+        <p class="image is-64x64">
+          <img src="{{user.avatar}}">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="field">
+          <p class="control">
+            <textarea class="textarea" placeholder="Leave a comment..."></textarea>
+          </p>
+        </div>
+        <nav class="level">
+          <div class="level-left">
+            <div class="level-item">
+              <a class="button is-info">Rate</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </article>
+  </div>
+</section>
