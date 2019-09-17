@@ -39,15 +39,18 @@ exports.getOneAppoiment = async (req, res) => {
 }
 
 exports.editAppoiment = async (req, res) => {
+  const enabledUpdates = ['date', 'locationId']
   const update = {}
   for (key in req.body) {
-    update[key] = req.body[key]
-    if (key === 'date') update[key] = moment(req.body[key])
+    if (enabledUpdates.includes(key)) {
+      update[key] = req.body[key]
+      if (key === 'date') update[key] = moment(req.body[key])
+    }
   }
-  const { id } = req.user
-  const { id: _id } = req.params
+  const { id: clientId } = req.user
+  const { id: employeeId } = req.params
 
-  const appoiment = await Appoiment.findOneAndUpdate({ _id, $or: [{ clientId: id }, { employeeId: id }] }, update)
+  const appoiment = await Appoiment.findOneAndUpdate({ _id, $or: [{ clientId }, { employeeId }] }, update)
 
   if (!appoiment) return res.status(404).send()
   res.status(200).send(appoiment)
