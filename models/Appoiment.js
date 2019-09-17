@@ -4,15 +4,18 @@ const appoimentSchema = new Schema(
   {
     employeeId: {
       type: Schema.Types.ObjectId,
-      required: true
+      required: true,
+      ref: 'User'
     },
     clientId: {
       type: Schema.Types.ObjectId,
-      required: true
+      required: true,
+      ref: 'User'
     },
     locationId: {
       type: Schema.Types.ObjectId,
-      required: true
+      required: true,
+      ref: 'Location'
     },
     date: Date
   },
