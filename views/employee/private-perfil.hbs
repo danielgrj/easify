@@ -28,14 +28,14 @@
     <div class="columns is-desktop is-centered is-vcentered">
       <div class="column is-narrow">
         <figure class="avatar">
-          <img src="{{avatar}}" alt="{{name}}">
+          <img src="{{user.avatar}}" alt="{{user.name}}">
         </figure>
       </div>
       <div class="column">
-        <h2 class="title is-2">{{name}}</h2>
+        <h2 class="title is-2">{{user.name}}</h2>
         <div>
-          <p><span>{{type}}</span></p>
-          <p><span>{{email}}</span></p>
+          <p><span>{{occupation.type}}</span></p>
+          <p><span>{{user.email}}</span></p>
         </div>
         <div>
           <a href="/auth/emp/edit" class="button is-warning">Edit</a>
@@ -48,40 +48,42 @@
   <div class="container">
     <div class="columns is-desktop">
       {{#each appoiments}}
-      <div class="column date-container is-desktop">
-        <div class="columns bg-appoiment">
-          <div class="column is-narrow">
-            <figure class="avatar">
-              <img src="{{client.avatar}}" alt="{{client.name}}" class="is-rounded">
+      <div class="box">
+        <article class="media">
+          <div class="media-left">
+            <figure class="image is-64x64">
+              <img src="{{clientId.avatar}}" alt="{{clientId.name}}">
             </figure>
           </div>
-          <div class="column">
-            <h4 class="title is-4">{{client.name}}</h4>
-            <h5 class="subtitle is-5">
-              <span class="icon is-medium"><i class="far fa-clock"></i></span>
-              <span>{{date}}</span>
-            </h5>
-            <h6 class="subtitle is-6">
-              {{address}}
-            </h6>
-            <div>
-              {{#if active}}
-              <div>
-                <p class="button is-primary">Active</p>
-              </div>
-              {{else}}
-              <div class="columns is-mobile">
-                <div class="column is-narrow">
-                  <a href="" class="button is-info">Accept</a>
-                </div>
-                <div class="column is-narrow">
-                  <a href="" class="button is-danger">Decline</a>
-                </div>
-              </div>
-              {{/if}}
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>{{clientId.name}}</strong>
+                <br>
+                <small>{{date}}</small>
+                <br>
+                {{location.address}}
+              </p>
             </div>
+            <nav class="level is-mobile">
+              <div class="level-left">
+                {{#if active}}
+                <a href="#{{_id}}" class="level-item button is-link danger">
+                  Accept
+                </a>
+                <a href="#{{_id}}" class="level-item button is-danger cancel">
+                  Cancel
+                </a>
+                <a href="#{{_id}}" class="level-item button is-danger edit">
+                  Edit
+                </a>
+                {{else}}
+                <span class="level-item tag is-primary is-medium">Accepted</span>
+                {{/if}}
+              </div>
+            </nav>
           </div>
-        </div>
+        </article>
       </div>
       {{/each}}
     </div>
@@ -97,5 +99,5 @@
     </div>
   </div>
 </section>
-<script src="https://cdnjs.com/libraries/Chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
 <script src="/js/emp-private-perfil.js"></script>
