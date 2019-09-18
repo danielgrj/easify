@@ -3,6 +3,7 @@ const Appoiment = require('./../models/Appoiment')
 const Raiting = require('./../models/Rating')
 const Occupation = require('./../models/Occupation')
 const Locations = require('./../models/Location')
+const moment = require('moment')
 
 exports.getEmpPrivateProfile = async (req, res) => {
   const { id } = req.user
@@ -33,6 +34,10 @@ exports.getEmpPublicProfile = async (req, res) => {
   const rating = await Raiting.findOne({ userId: user.id })
   const ratings = await Raiting.find({ employeeId: id }).populate('userId')
   const locations = await Locations.find({ userId: user.id })
+  const appoiments = await Appoiment.find({ employeeId: id })
+  const time = moment(occupation.createdAt).fromNow(true)
+  const appoimentsTimes = appoiments.length
+
   const locationsData = {
     locations,
     areLocations: !!locations.length
@@ -50,7 +55,7 @@ exports.getEmpPublicProfile = async (req, res) => {
     rating.stars = stars
   })
 
-  res.render('user/emp-public-profile', { user, employee, occupation, ratings, locationsData })
+  res.render('user/emp-public-profile', { user, employee, occupation, ratings, locationsData, time, appoimentsTimes })
 }
 
 exports.uploadProfileImage = async (req, res) => {

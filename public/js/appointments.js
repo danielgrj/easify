@@ -1,5 +1,13 @@
-const appoinmentsApi = new apiHandler('http://localhost:3000/appoiments')
-const locationsApi = new apiHandler('http://localhost:3000/locations')
+const appoinmentsApi = new apiHandler(
+  window.location.hostname === 'localhost'
+    ? 'http://localhost:3000/appoiments'
+    : `${window.location.protocol}//${window.location.hostname}/appoiments`
+)
+const locationsApi = new apiHandler(
+  window.location.hostname === 'localhost'
+    ? 'http://localhost:3000/locations'
+    : `${window.location.protocol}//${window.location.hostname}/locations`
+)
 
 const showAppoinmentBtn = document.querySelector('#appoinment')
 const bookBtn = document.querySelector('#book-button')
