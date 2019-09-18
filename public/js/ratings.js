@@ -17,6 +17,7 @@ const paintStars = isClick => e => {
     for (let i = 0; i < 5; i++) {
       stars[i].classList.add('far')
       stars[i].classList.remove('fas')
+      stars[i].classList.remove('fixed')
       stars[i].style.color = 'black'
     }
   }
