@@ -3,7 +3,7 @@ const Appointment = require('./../models/Appoiment')
 const Location = require('./../models/Location')
 const moment = require('moment')
 
-exports.filterOccupations = async (req, res) => {
+exports.filterOccupations = async (req, res, next) => {
   // const
 
   const {

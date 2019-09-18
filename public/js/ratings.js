@@ -8,7 +8,8 @@ let calification
 
 const paintStars = isClick => e => {
   const numberStars = parseInt(e.target.getAttribute('numberStar'))
-  calification = parseInt(e.target.getAttribute('numberStar'))
+
+  if (isClick && !Number.isNaN(numberStars)) calification = numberStars
 
   if (isClick) {
     for (let i = 0; i < 5; i++) {
@@ -52,11 +53,13 @@ rateBtn.onclick = async () => {
 
   let stars = ''
 
-  for (let i = 0; i < rating.calification; i++) {
+  for (let i = 0; i < calification; i++) {
     stars += `<span class="icon is-small">
                 <i class="fas fa-star is-yellow"></i>
               </span>`
   }
+
+  console.log(stars)
 
   const html = `
     <article class="media">
@@ -69,12 +72,23 @@ rateBtn.onclick = async () => {
         <div class="content" id="appoinment-content">
           <p>
             <strong>${name}</strong> <small>
+              <br>
               ${stars}
             </small>
             <br>
             ${content}
           </p>
         </div>
+        <nav class="level is-mobile">
+          <div class="level-left">
+            <a class="level-item is-black">
+              <span class="icon is-small"><i class="fas fa-thumbs-up"></i></span>
+            </a>
+            <a class="level-item is-black">
+              <span class="icon is-small"><i class="fas fa-thumbs-down"></i></span>
+            </a>
+          </div>
+        </nav>
       </div>
     </article>
   `

@@ -25,15 +25,22 @@ exports.createRaiting = async (req, res) => {
 
   if (employeeId === userId) return res.status(403).send()
   const rating = await Rating.create({ employeeId, userId, content, calification })
-
   const ratings = await Rating.find({ employeeId })
 
-  ratings.push(rating)
+  console.log(ratings)
 
-  const ratingNumber = ratings.reduce(({ calification }, accum) => accum + calification, 0)
+  const ratingNumber = parseInt(
+    (
+      ratings.reduce((accum, { calification }) => {
+        return accum + calification
+      }, 0) / ratings.length
+    ).toFixed(2)
+  )
+
+  // console.log(ratingNumber)
 
   await Occupation.findOneAndUpdate({ userId: employeeId }, { rating: ratingNumber })
-  res.send(raiting)
+  res.send(rating)
 }
 
 exports.editRaiting = async (req, res) => {
