@@ -9,7 +9,7 @@ const {
 } = require('./../controllers/raitings.controller')
 
 router.get('/:id', catchErrors(getAllRaitings))
-router.get('/:id', catchErrors(createRaiting))
+router.post('/:id', catchErrors(createRaiting))
 
 router.post('/:id/:raitingId', catchErrors(getOneRaiting))
 

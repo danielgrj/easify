@@ -1,4 +1,5 @@
 const Rating = require('./../models/Rating')
+const Occupation = require('./../models/Occupation')
 
 exports.getAllRaitings = async (req, res) => {
   const { id: employeeId } = req.params
@@ -11,7 +12,7 @@ exports.getOneRaiting = async (req, res) => {
   const { id: employeeId, raitingId: _id } = req.params
   const { id: userId } = req.userId
 
-  const raiting = await raiting.findOne({ employeeId, userId, _id })
+  const raiting = await Rating.findOne({ employeeId, userId, _id })
 
   if (!raiting) return res.status(404).send()
   res.status(200).send(raiting)
@@ -19,12 +20,19 @@ exports.getOneRaiting = async (req, res) => {
 
 exports.createRaiting = async (req, res) => {
   const { id: employeeId } = req.params
-  const { id: userId } = req.userId
+  const { id: userId } = req.user
   const { content, calification } = req.body
 
   if (employeeId === userId) return res.status(403).send()
-  const raiting = await Rating.create({ employeeId, userId, content, calification })
+  const rating = await Rating.create({ employeeId, userId, content, calification })
 
+  const ratings = await Rating.find({ employeeId })
+
+  ratings.push(rating)
+
+  const ratingNumber = ratings.reduce(({ calification }, accum) => accum + calification, 0)
+
+  await Occupation.findOneAndUpdate({ userId: employeeId }, { rating: ratingNumber })
   res.send(raiting)
 }
 
