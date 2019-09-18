@@ -30,9 +30,14 @@
 }
 
 .button-container h1 {
-  bottom: 4em;
+  bottom: 8em;
   position: absolute;
   right: 11.5em;
+  color: white;
+}
+
+.title.is-1 {
+  font-size: 10rem;
 }
 
 .btnLogin {
@@ -82,6 +87,21 @@ form {
     position: relative;
   }
 }
+.flexbox-container {
+  display: -ms-flex;
+  display: -webkit-flex;
+  display: flex;
+}
+
+.flexbox-container > div {
+  width: 50%;
+  padding: 10px;
+}
+
+.flexbox-container > div:first-child {
+  margin-right: 20px;
+}
+
 .avatar {
   overflow: hidden;
   border-radius: 50%;
