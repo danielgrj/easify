@@ -92,6 +92,12 @@ form {
 .address {
   width: 480px; }
 
+.is-yellow {
+  color: #ffd300; }
+
+.is-black {
+  color: #333; }
+
 .is-changing {
   transition: all 0.3s ease-in-out; }
 

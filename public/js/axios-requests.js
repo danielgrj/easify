@@ -16,7 +16,6 @@ class apiHandler {
   }
 
   createOne(data, helper) {
-    console.log(helper)
     return this.api.post(helper ? `/${helper}` : '', data)
   }
 
