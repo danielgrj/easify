@@ -15,8 +15,8 @@ class apiHandler {
     return this.api.get(id)
   }
 
-  createOne(data) {
-    return this.api.post('', data)
+  createOne(data, helper) {
+    return this.api.post(helper ? `/${helper}` : '', data)
   }
 
   editOne(id, data) {

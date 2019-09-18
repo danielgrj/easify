@@ -14,7 +14,5 @@ $tabs-toggle-link-active-border-color: $easify-tabs-active-backgroud;
 // Import only what you need from Bulma
 @import 'base/base';
 @import 'base/transitions';
-@import 'base/_landing';
+@import 'base/landing';
 @import '../../node_modules/bulma/bulma';
-
-

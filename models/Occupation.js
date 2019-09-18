@@ -12,7 +12,10 @@ const occupationSchema = new Schema(
       unique: true,
       ref: 'User'
     },
-    raiting: Number,
+    rating: {
+      type: Number,
+      default: 0
+    },
     timetable: {
       start: String,
       end: String
