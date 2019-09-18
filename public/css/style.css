@@ -43,6 +43,7 @@
 .is-visible {
   opacity: 1; }
 
+
 .bg-img {
   background-image: url("../images/img1-min.jpg");
   background-position: center center;
@@ -182,6 +183,7 @@ form {
 .loginBtn--google:hover,
 .loginBtn--google:focus {
   background: #E74B37; }
+
 
 /*! bulma.io v0.7.5 | MIT License | github.com/jgthms/bulma */
 @keyframes spinAround {

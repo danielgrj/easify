@@ -11,21 +11,20 @@
     </div>
     <div class="columns is-mobile has-text-centered	">
       <div class="column">
-        <h2 class="title is-2">55</h2>
+        <h2 class="title is-2">{{appoimentsTimes}}</h2>
         <h3 class="subtitle is-3">Consultations</h3>
       </div>
       <div class="column">
         <h2 class="title is-2">
           {{occupation.rating}}
-          <br>
-          <span class="icon">
+          <span class="icon is-large">
             <i class="fas fa-star"></i>
           </span>
         </h2>
         <h3 class="subtitle is-3">Rating</h3>
       </div>
       <div class="column">
-        <h2 class="title is-2">2 years</h2>
+        <h2 class="title is-2">{{time}}</h2>
         <h3 class="subtitle is-3">Time</h3>
       </div>
     </div>
@@ -138,8 +137,7 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/js/axios-requests.js"></script>
 <script>
-  const ratingApi = new apiHandler('http://localhost:3000/ratings/{{employee._id}}');
-  console.log('http://localhost:3000/ratings/{{employee._id}}')
+  const ratingApi = new apiHandler(window.location.hostname === 'localhost' ? 'http://localhost:3000/ratings/{{employee._id}}' : `${window.location.protocol}//${window.location.hostname}/ratings/{{employee._id}}`);
   const name = '{{ user.name }}';
 </script>
 <script src="/js/ratings.js"></script>
