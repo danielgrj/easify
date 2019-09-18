@@ -1,7 +1,13 @@
 <div class="field">
   <label for="date" class="label">Date: </label>
   <div class="control">
-    <input type="date" name="date" id="date" class="input" value="{{date}}">
+    <div class="control has-icons-left">
+      <input type="date" name="date" id="date" class="input is-danger" value="{{date}}">
+      <span class="icon is-small is-left">
+        <i class="fas fa-calendar"></i>
+      </span>
+    </div>
+    <p class="help is-danger" id="date-helper">Please select a date</p>
   </div>
 </div>
 <div class="field ">

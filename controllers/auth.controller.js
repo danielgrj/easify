@@ -7,7 +7,7 @@ const signupRedirect = (req, res, next) => async err => {
 
   if (err) return next(err)
 
-  if (req.user.isEmployee && !occupation) {
+  if (req.user.isEmployee && !occupation.active) {
     return res.redirect('/auth/emp/comp')
   } else if (req.user.isEmployee) {
     return res.redirect('/user/emp/profile')

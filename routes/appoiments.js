@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { catchErrors, isLoggedIn } = require('./../middleware')
+const { catchErrors, isLoggedIn } = require('../middleware')
 const {
   createAppoiment,
   editAppoiment,
@@ -7,7 +7,7 @@ const {
   getOneAppoiment,
   deleteAppoiment,
   test
-} = require('./../controllers/appoiments.controller')
+} = require('../controllers/appoiments.controller')
 
 router.get('/', catchErrors(getAllAppoiments('client')))
 router.get('/emp', catchErrors(getAllAppoiments('employee')))

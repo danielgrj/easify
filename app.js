@@ -15,6 +15,7 @@ const userRoutes = require('./routes/user')
 const locationRoutes = require('./routes/locations')
 const appoimentsRoutes = require('./routes/appoiments')
 const raitingsRoutes = require('./routes/raitings')
+const searchRoutes = require('./routes/search')
 
 const { isLoggedIn } = require('./middleware')
 
@@ -49,11 +50,12 @@ hbs.registerPartials(path.join(__dirname, '/views/partials'))
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRoutes)
+app.use('/', searchRoutes)
 app.use('/auth/', authRoutes)
 app.use('/user', isLoggedIn, userRoutes)
 app.use('/locations', isLoggedIn, locationRoutes)
 app.use('/appoiments', isLoggedIn, appoimentsRoutes)
-app.use('/raitings', isLoggedIn, raitingsRoutes)
+app.use('/ratings', isLoggedIn, raitingsRoutes)
 
 app.listen(process.env.PORT, (req, res) => {
   console.log(`Server is up on http://localhost:${process.env.PORT}`)
