@@ -1,21 +1,51 @@
-<div class="flexbox-container columns">
-	<div ><img class="img-responsive" src="../images/img18.png"/><div>
-	<div ><div class="container">
-  <form action="/auth/login" method="post">
-    <div>
-      <label for="email">Email: </label>
-      <input type="email" name="email" id="email" required>
+<section class="hero is-fullheight is-medium is-primary is-bold">
+        <div class="hero-body">
+          <div class="container">
+            <div class="columns is-centered">
+              <article class="card is-rounded">
+                <div class="card-content">
+                  <h1 class="title" style="padding-left: 2.5em">       
+                    <img src="../images/img18.png" alt="logo" width="200">
+                  </h1>
+                  <form action="/auth/login" method="post" class="box">
+                   <label for="" class="label">Email:</label>
+                  <div class="control has-icons-left">
+                    <input class="input" type="email"  name="email" id="email" placeholder="e.g. bobsmith@gmail.com" required>
+                     <span class="icon is-small is-left">
+                    <i class="fa fa-envelope"></i></span>
+                  </div>
+                  <br>
+                   <label for="" class="label">Password:</label>
+                  <div class="control has-icons-left">
+                    <input class="input" type="password"  name="password" id="password" placeholder="Password" required>
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-lock"></i>
+                    </span>
+                  </div>
+                  <p class="control">
+                    <label class="checkbox">
+                      <input type="checkbox">
+                      Remember me
+                    </label>
+                  </p>
+                  <br>
+                  <p class="control">
+                     <input type="submit" value="Log in" class="button is-primary is-medium is-fullwidth">
+                  </p>
+                  </form>
+                 <a href="/auth/facebook">
+                 <button class="loginBtn loginBtn--facebook">
+                   Login facebook
+                   </button>
+                   </a> 
+                  <a href="/auth/google">
+                  <button class="loginBtn loginBtn--google">
+                  Login google
+                  </button>
+                  </a>
+                </div>
+              </article>
+            </div>
+          </div>
     </div>
-    <div>
-      <label for="password">Password: </label>
-      <input type="password" name="password" id="password" required>
-    </div>
-    <div>
-      <input type="submit" value="Log in">
-    </div>
-  </form>
-  <a href="/auth/facebook">Log in facebook</a>
-  <a href="/auth/google">Log in google</a>
-</div>
-</div>
-
+  </section>
