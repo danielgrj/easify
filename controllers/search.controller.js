@@ -44,6 +44,9 @@ exports.filterOccupations = async (req, res, next) => {
     .limit(limit)
     .skip(limit * (page - 1))
     .sort(sort)
+    .populate('userId')
+
+  console.log(occupations)
 
   req.occupations = occupations
   next()
