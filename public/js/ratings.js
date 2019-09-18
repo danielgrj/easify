@@ -9,6 +9,8 @@ let calification
 const paintStars = isClick => e => {
   const numberStars = parseInt(e.target.getAttribute('numberStar'))
 
+  console.log(e.target)
+
   if (isClick && !Number.isNaN(numberStars)) calification = numberStars
 
   if (isClick) {
