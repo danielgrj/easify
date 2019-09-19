@@ -1,4 +1,4 @@
-<form action="/auth/emp/comp" method="post">
+{{!-- <form action="/auth/emp/comp" method="post">
   <div>
     <label for="type">Occupation: </label>
     <select name="type" id="type">
@@ -31,4 +31,56 @@
   <div>
     <input type="submit" value="Send">
   </div>
-</form>
+</form> --}}
+
+<section class="hero is-fullheight is-medium is-bold" style="background-image: url('/images/img4.jpg')">
+        <div class="hero-body">
+          <div class="container">
+            <div class="columns is-centered">
+              <article class="card is-rounded">
+                <div class="card-content">
+                    <form action="/auth/emp/comp" method="post">
+                    <div>
+                      <label for="type" class="label">Occupation: </label>
+                       <div class="select is-rounded control">
+                      <select name="type" id="type" class="select is-focused">
+                        <option value="PLUMBER">Plumber</option>
+                        <option value="MECHANIC">Mechanic</option>
+                        <option value="ELECTRICIST">Electricist</option>
+                        <option value="LOCKSMITH">Locksmith</option>
+                        <option value="CARETAKER">Caretaker</option>
+                      </select>
+                       </div>
+                    </div>
+                     <h3 class="label" style="padding-top: 2em">Timetable</h3>
+                    <div class="level">
+                      <div class="level-left">
+                        <label for="start" >From:  </label>
+                        <input type="time" name="start" id="start" class="input is-rounded">
+                      </div>
+                      <div class="level-right">
+                        <label for="end">To:  </label>
+                        <input type="time" name="end" id="end" class="input is-rounded">
+                      </div>
+                    </div>
+                    <div>
+                      <label for="aboutMe" class="label">Tell us a little about you: </label>
+                      <textarea name="aboutMe" id="aboutMe" cols="30" rows="5"class="textarea"  ></textarea>
+                    </div>
+                    <br>
+                    <div>
+                      <label for="location"  class="label"> Location: </label>
+                      <input type="text" name="location" id="location" class="input is-rounded" >
+                    </div>
+                    <div>
+                      <br>
+                      <input type="submit" value="Send" class="button is-primary is-medium ">
+                    </div>
+                  </form>
+
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+</section>

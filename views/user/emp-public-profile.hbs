@@ -1,15 +1,17 @@
-<section class="section">
-  <div class="container">
+<section class="section wrapper">
+  <div class="container ">
     <div class="columns is-centered has-text-centered">
       <div class="column is-narrow is-flex is-align-centered is-f-column">
-        <figure class="avatar">
-          <img src="{{employee.avatar}}" alt="{{employee.name}}">
+        <figure class="image is-128x128 "  style="margin-right: 2em">
+          <img src="{{employee.avatar}}" alt="{{employee.name}}" class="image is-rounded">
         </figure>
-        <h2 class="title is-2">{{employee.name}}</h2>
+        <div class="profile-card js-profile-card" style="margin-top: 1em">
+           <h3 class="title is-2">{{employee.name}}</h3>
         <h4 class="subtitle is-4">{{occupation.type}}</h4>
+        </div>
       </div>
     </div>
-    <div class="columns is-mobile has-text-centered	">
+    <div class="columns is-mobile has-text-centered	" id="perfilPublicEmp">
       <div class="column">
         <h2 class="title is-2">{{appoimentsTimes}}</h2>
         <h3 class="subtitle is-3">Consultations</h3>
@@ -17,8 +19,8 @@
       <div class="column">
         <h2 class="title is-2">
           {{occupation.rating}}
-          <span class="icon is-large">
-            <i class="fas fa-star"></i>
+          <span class="icon is-small" style="margin-left: 5px">
+            <i class="fas fa-star "></i>
           </span>
         </h2>
         <h3 class="subtitle is-3">Rating</h3>
@@ -28,20 +30,21 @@
         <h3 class="subtitle is-3">Time</h3>
       </div>
     </div>
-
   </div>
 </section>
 <section class="section">
-  <div class="columns is-flex is-justify-centered">
+  <div class="centrado ">
+  <div class="is-flex is-justify-centered separado">
     <a href="#" class="button is-info">View on map</a>
   </div>
-  <div class="is-flex is-justify-centered">
+  <div class="is-flex is-justify-centered separado">
     <button class="button is-primary" id="appoinment">Book an appoiment</button>
   </div>
+  </div>
 </section>
-<section class="section">
-  <div class="container">
 
+<section  class="section">
+  <div class="container">
     <div class="modal" id="book-card">
       <div class="modal-background"></div>
       <div class="modal-card">
@@ -61,6 +64,7 @@
   </div>
 </section>
 <section class="section">
+  <h3 class="subtitle is-3">Comentarios:</h3>
   <div class="container" id="comments-container">
     {{#each ratings}}
     <article class="media">

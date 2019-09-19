@@ -5,6 +5,7 @@ router.get('/', (req, res) => {
   res.render('index')
 })
 
+
 // router.get('/client/searchClient', (req, res) => {
 //   res.render('client/searchClient')
 // })
