@@ -4,6 +4,7 @@
   "description": "Ironhack module 2 project",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app.js",
     "css-build": "node-sass --omit-source-map-url public/scss/main.scss public/css/style.css",
