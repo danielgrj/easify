@@ -26,4 +26,8 @@ class apiHandler {
   deleteOne(id) {
     return this.api.delete(id)
   }
+
+  setDefault(id, route) {
+    return this.api.patch(`${id}/${route}`)
+  }
 }
