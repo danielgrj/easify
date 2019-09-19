@@ -17,7 +17,7 @@
       <div class="select" {{#unless areLocations}} style="display: none" {{/unless}} id="select-container">
         <select name="location" id="locations-select" class="address">
           {{#each locations}}
-          <option value="{{_id}}" {{#if isDefault}} selected {{/if}}>{{address}}</option>
+          <option value="{{_id}}" {{#if default}} selected {{/if}}>{{address}}</option>
           {{/each}}
         </select>
       </div>
