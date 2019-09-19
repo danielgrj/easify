@@ -1,0 +1,149 @@
+<section class="section wrapper">
+  <div class="container ">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-narrow is-flex is-align-centered is-f-column">
+        <figure class="image is-128x128 "  style="margin-right: 2em">
+          <img src="{{employee.avatar}}" alt="{{employee.name}}" class="image is-rounded">
+        </figure>
+        <div class="profile-card js-profile-card" style="margin-top: 1em">
+           <h3 class="title is-2">{{employee.name}}</h3>
+        <h4 class="subtitle is-4">{{occupation.type}}</h4>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-mobile has-text-centered	" id="perfilPublicEmp">
+      <div class="column">
+        <h2 class="title is-2">{{appoimentsTimes}}</h2>
+        <h3 class="subtitle is-3">Consultations</h3>
+      </div>
+      <div class="column">
+        <h2 class="title is-2">
+          {{occupation.rating}}
+          <span class="icon is-small" style="margin-left: 5px">
+            <i class="fas fa-star "></i>
+          </span>
+        </h2>
+        <h3 class="subtitle is-3">Rating</h3>
+      </div>
+      <div class="column">
+        <h2 class="title is-2">{{time}}</h2>
+        <h3 class="subtitle is-3">Time</h3>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="centrado ">
+  <div class="is-flex is-justify-centered separado">
+    <a href="#" class="button is-info">View on map</a>
+  </div>
+  <div class="is-flex is-justify-centered separado">
+    <button class="button is-primary" id="appoinment">Book an appoiment</button>
+  </div>
+  </div>
+</section>
+
+<section  class="section">
+  <div class="container">
+    <div class="modal" id="book-card">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Book an appoinment</p>
+          <button class="delete" aria-label="close" id="close"></button>
+        </header>
+        <section class="modal-card-body">
+          {{> appoinment locationsData}}
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success" id="book-button" profileId="{{employee._id}}">Book</button>
+          <button class="button" id="cancel-book-button">Cancel</button>
+        </footer>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <h3 class="subtitle is-3">Comentarios:</h3>
+  <div class="container" id="comments-container">
+    {{#each ratings}}
+    <article class="media">
+      <figure class="media-left">
+        <p class="image is-64x64">
+          <img src="{{userId.avatar}}">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content" id="appoinment-content">
+          <p>
+            <strong>{{userId.name}}</strong> <small>
+              <br>
+              {{#each stars}}
+              <span class="icon is-small">
+                <i class="fas fa-star is-yellow"></i>
+              </span>
+              {{/each}}
+            </small>
+            <br>
+            {{content}}
+          </p>
+        </div>
+        <nav class="level is-mobile">
+          <div class="level-left">
+            <a class="level-item is-black">
+              <span class="icon is-small"><i class="fas fa-thumbs-up"></i></span>
+            </a>
+            <a class="level-item is-black">
+              <span class="icon is-small"><i class="fas fa-thumbs-down"></i></span>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </article>
+    {{/each}}
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <article class="media">
+      <figure class="media-left">
+        <p class="image is-64x64">
+          <img src="{{user.avatar}}" id="avatar">
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="field">
+          <div class="stars is-flex" id="star-rating">
+            <div><span class="icon is-medium"><i class="far fa-lg fa-star cr-star" numberStar="1"></i></span></div>
+            <div><span class="icon is-medium"><i class="far fa-lg fa-star cr-star" numberStar="2"></i></span></div>
+            <div><span class="icon is-medium"><i class="far fa-lg fa-star cr-star" numberStar="3"></i></span></div>
+            <div><span class="icon is-medium"><i class="far fa-lg fa-star cr-star" numberStar="4"></i></span></div>
+            <div><span class="icon is-medium"><i class="far fa-lg fa-star cr-star" numberStar="5"></i></span></div>
+          </div>
+        </div>
+        <div class="field">
+          <p class="control">
+            <textarea class="textarea" placeholder="Leave a comment..." style="resize: none"
+              id="rating-content"></textarea>
+          </p>
+        </div>
+        <nav class="level">
+          <div class="level-left">
+            <div class="level-item">
+              <a class="button is-info" id="rate-btn">Rate</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </article>
+  </div>
+</section>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/js/axios-requests.js"></script>
+<script>
+  const ratingApi = new apiHandler(window.location.hostname === 'localhost' ? 'http://localhost:3000/ratings/{{employee._id}}' : `${window.location.protocol}//${window.location.hostname}/ratings/{{employee._id}}`);
+  const name = '{{ user.name }}';
+</script>
+<script src="/js/ratings.js"></script>
+<script src="/js/locations.js"></script>
+<script src="/js/appointments.js"></script>

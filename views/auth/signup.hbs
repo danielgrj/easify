@@ -1,28 +1,62 @@
-<div class="container">
-  <form action="{{action}}" method="post">
-    <div>
-      <label for="firstName">First name: </label>
-      <input id="firstName" type="text" name="firstName">
-    </div>
-    <div>
-      <label for="lastName">Last name: </label>
-      <input id="lastName" type="text" name="lastName">
-    </div>
-    <div>
-      <label for="email">Email: </label>
-      <input type="email" name="email" id="email" required>
-    </div>
-    <div>
-      <label for="password">Password: </label>
-      <input type="password" name="password" id="password" required>
-    </div>
-    {{#if isEmployee}}
-    <div style="display: none">
-      <input type="hidden" name="isEmployee" value="true">
-    </div>
-    {{/if}}
-    <div>
-      <input type="submit" value="Sign up">
-    </div>
-  </form>
-</div>
+<section class="hero is-fullheight is-medium is-bold" style="background-color: lightslategray">
+        <div class="hero-body">
+          <div class="container">
+            <div class="columns is-centered">
+              <article class="card is-rounded">
+                <div class="card-content">
+                  <h1 class="title" style="padding-left: 2.5em">       
+                    <img src="/images/img19.png" alt="logo" width="200" >
+                  </h1>
+                   <form action="/auth/signup" method="post" class="box">
+                    <label for="name" class="label">Name: </label>
+                   <div class="control has-icons-left">
+                      <input id="name" type="text" name="name" class="input" placeholder="Name">
+                      <span class="icon is-small is-left">
+                    <i class="fa fa-user "></i></span>
+                    </div>
+                    <br>
+                    <label for="email" class="label">Email: </label>
+                    <div class="control has-icons-left">
+                      <input type="email" name="email" id="email" class="input" placeholder="e.g. bobsmith@gmail.com" required>
+                       <span class="icon is-small is-left">
+                    <i class="fa fa-envelope"></i></span>
+                    </div>
+                    <br>
+                    <label for="password" class="label">Password: </label>
+                    <div class="control has-icons-left">
+                      <input type="password" name="password" id="password"  class="input" placeholder="Password" required>
+                       <span class="icon is-small is-left">
+                      <i class="fa fa-lock"></i>
+                    </span>
+                    </div>
+                    {{#if isEmployee}}
+                    <div style="display: none">
+                      <input type="hidden" name="isEmployee" value="true">
+                    </div>
+                    {{/if}}
+                    <div>
+                      <br>
+                      <p class="control">
+                      <input type="submit" value="Sign up" class="button is-primary is-medium is-fullwidth">
+                      </p>
+                    </div>
+                   </form>
+                  <a href="{{facebookAction}}">
+                    <button class="loginBtn loginBtn--facebook">
+                   Login facebook
+                  </button>
+                  </a> 
+
+                   <a href="{{googleAction}}">
+                     <button class="loginBtn loginBtn--google">
+                       Log in google
+                     </button>
+                     </a>
+
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+</section>
+

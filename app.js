@@ -9,10 +9,15 @@ const hbs = require('hbs')
 const session = require('express-session')
 const passport = require('./config/passport')
 
-const { isLoggedOut } = require('./middleware')
-
 const indexRoutes = require('./routes/index')
 const authRoutes = require('./routes/auth')
+const userRoutes = require('./routes/user')
+const locationRoutes = require('./routes/locations')
+const appoimentsRoutes = require('./routes/appoiments')
+const raitingsRoutes = require('./routes/raitings')
+const searchRoutes = require('./routes/search')
+
+const { isLoggedIn } = require('./middleware')
 
 const app = express()
 
@@ -41,10 +46,16 @@ app.use(cookieParser())
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
+hbs.registerPartials(path.join(__dirname, '/views/partials'))
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRoutes)
-app.use('/auth/', isLoggedOut, authRoutes)
+app.use('/', searchRoutes)
+app.use('/auth/', authRoutes)
+app.use('/user', isLoggedIn, userRoutes)
+app.use('/locations', isLoggedIn, locationRoutes)
+app.use('/appoiments', isLoggedIn, appoimentsRoutes)
+app.use('/ratings', isLoggedIn, raitingsRoutes)
 
 app.listen(process.env.PORT, (req, res) => {
   console.log(`Server is up on http://localhost:${process.env.PORT}`)

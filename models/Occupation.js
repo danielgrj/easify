@@ -1,17 +1,36 @@
 const { model, Schema } = require('mongoose')
 
-const occupationSchema = new Schema({
-  type: {
-    type: String,
-    require: true,
-    enum: ['PLUMBER', 'MECHANIC', 'ELECTRICIST', 'LOCKSMITH', 'CARETAKER']
+const occupationSchema = new Schema(
+  {
+    type: {
+      type: String,
+      enum: ['PLUMBER', 'MECHANIC', 'ELECTRICIST', 'LOCKSMITH', 'CARETAKER']
+    },
+    userId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      unique: true,
+      ref: 'User'
+    },
+    rating: {
+      type: Number,
+      default: 0
+    },
+    timetable: {
+      start: String,
+      end: String
+    },
+    address: {
+      type: Schema.Types.ObjectId,
+      ref: 'Location'
+    },
+    aboutMe: String,
+    active: Boolean
   },
-  raiting: Number,
-  timetable: {
-    start: String,
-    end: String
-  },
-  aboutMe: String
-})
+  {
+    timestamps: true,
+    versionKey: false
+  }
+)
 
 module.exports = model('Occupation', occupationSchema)

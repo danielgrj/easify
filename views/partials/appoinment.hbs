@@ -1,0 +1,47 @@
+<div class="field">
+  <label for="date" class="label">Date: </label>
+  <div class="control">
+    <div class="control has-icons-left">
+      <input type="date" name="date" id="date" class="input is-danger" value="{{date}}">
+      <span class="icon is-small is-left">
+        <i class="fas fa-calendar"></i>
+      </span>
+    </div>
+    <p class="help is-danger" id="date-helper">Please select a date</p>
+  </div>
+</div>
+<div class="field ">
+  <label for="location" class="label">Address: </label>
+  <div class="field is-grouped">
+    <div class="control ">
+      <div class="select" {{#unless areLocations}} style="display: none" {{/unless}} id="select-container">
+        <select name="location" id="locations-select" class="address">
+          {{#each locations}}
+          <option value="{{_id}}" {{#if default}} selected {{/if}}>{{address}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+    <div class="control">
+      <button class="button is-info" id="location-btn">Add</button>
+    </div>
+  </div>
+</div>
+<div class="field">
+  <div class="control">
+    <input type="hidden" name="id" class="input" id="id" value="{{_id}}">
+  </div>
+</div>
+<div id="location-container" style="display: none">
+  <div class="box">
+    {{> location}}
+  </div>
+  <div class="field is-grouped">
+    <div class="control">
+      <button class="button is-link" id="location-submit">Add</button>
+    </div>
+    <div class="control">
+      <button class="button is-text" id="location-cancel">Cancel</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+@charset "utf-8";
+
+
+// Import a Google Font
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+
+// Easify variables
+$easify-tabs-active-backgroud: #02c8a7;
+
+// Update tabs variables
+$tabs-toggle-link-active-background-color: $easify-tabs-active-backgroud;
+$tabs-toggle-link-active-border-color: $easify-tabs-active-backgroud;
+
+// Import only what you need from Bulma
+@import 'base/base';
+@import 'base/transitions';
+@import 'base/landing';
+@import '../../node_modules/bulma/bulma';
