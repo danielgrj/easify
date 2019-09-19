@@ -11,6 +11,10 @@ const locationSchema = new Schema(
       type: Schema.Types.ObjectId,
       required: true,
       ref: 'User'
+    },
+    default: {
+      type: Boolean,
+      default: false
     }
   },
   {
