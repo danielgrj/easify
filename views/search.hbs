@@ -1,4 +1,4 @@
-<section class="section">
+<section class="section" style="background-color: lightslategray">
   <div class="container">
     <div class="is-flex is-justify-centered">
       <button href="" class="button is-primary filter-button" id="show-filter-button">
@@ -12,7 +12,7 @@
           <p class="modal-card-title">Filter and sort</p>
           <button class="delete" aria-label="close" id="close-button"></button>
         </header>
-        <section class="modal-card-body">
+        <section class="modal-card-body" >
           <div class="filters">
             <div class="field">
               <label for="rating" class="label">Rating: </label>
@@ -44,16 +44,16 @@
         </footer>
       </div>
     </div>
-</section>
-</section>
-<div class="section">
+
+<div class="section" >
   <div class="container" id="occupations-container">
     {{#each occupations}}
     <div class="box">
       <article class="media">
         <div class="media-left is-flex is-align-centered">
-          <figure class="avatar is-64x64">
-            <img src="{{userId.avatar}}" alt="{{userId.name}}">
+          <figure class="avatar image is-128x128 is-square	
+">
+            <img src="{{userId.avatar}}" alt="{{userId.name}}" class="is-rounded">
           </figure>
         </div>
         <div class="media-content">
@@ -84,6 +84,7 @@
     {{/each}}
   </div>
 </div>
+</section>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/js/axios-requests.js"></script>
 <script src="/js/search.js"></script>

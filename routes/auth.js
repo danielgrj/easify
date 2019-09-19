@@ -19,6 +19,9 @@ const { catchErrors, isLoggedIn, isLoggedOut } = require('./../middleware')
 router.get('/signup', isLoggedOut, getEmployeerSignupForm)
 router.post('/signup', isLoggedOut, catchErrors(createUser))
 
+// router.get('/signup', isLoggedOut, getEmployeerSignupForm)
+// router.post('/signup', isLoggedOut, catchErrors(createUser))
+
 router.get('/emp/signup', isLoggedOut, getEmployeeSignupForm)
 
 router.get('/facebook', isLoggedOut, passport.authenticate('facebook', { scope: ['email'] }))
