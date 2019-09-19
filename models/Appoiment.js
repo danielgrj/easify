@@ -18,6 +18,8 @@ const appoimentSchema = new Schema(
       ref: 'Location'
     },
     date: Date,
+    employeeConfirmation: Boolean,
+    clientConfirmation: Boolean,
     active: {
       type: Boolean,
       default: false

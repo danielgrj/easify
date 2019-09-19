@@ -42,10 +42,13 @@ bookBtn.onclick = async () => {
   const locationId = locationsSelect.options[locationsSelect.selectedIndex].value
   const employeeId = bookBtn.getAttribute('profileId')
 
+  bookBtn.classList.add('is-loading')
+
   try {
     const appoinment = await appoinmentsApi.createOne({ date, locationId }, `user/${employeeId}`)
   } catch (err) {}
 
+  bookBtn.classList.remove('is-loading')
   bookCard.classList.remove('is-active')
 }
 
