@@ -10,7 +10,9 @@ const {
   logoutUser,
   setEmployee,
   getOccupationForm,
-  fillOccupation
+  fillOccupation,
+  editEmp,
+  editUser
 } = require('./../controllers/auth.controller')
 const { catchErrors, isLoggedIn, isLoggedOut } = require('./../middleware')
 
@@ -39,6 +41,9 @@ router.post('/login', isLoggedOut, passport.authenticate('local'), loginUser)
 
 router.get('/emp/comp', getOccupationForm)
 router.post('/emp/comp', catchErrors(fillOccupation))
+
+router.post('/edit', catchErrors(editUser))
+router.post('/emp/edit', catchErrors(editEmp))
 
 router.get('/logout', isLoggedIn, logoutUser)
 

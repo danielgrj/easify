@@ -1,6 +1,7 @@
 const Appoiment = require('./../models/Appoiment')
 const Location = require('./../models/Location')
 const moment = require('moment')
+const transport = require('./../config/sendMail')
 
 exports.createAppoiment = async (req, res) => {
   const { locationId, date: dateString } = req.body
@@ -47,13 +48,14 @@ exports.editAppoiment = async (req, res) => {
       if (key === 'date') update[key] = moment(req.body[key])
     }
   }
+  const { _id } = req.body
   const { id: clientId } = req.user
   const { id: employeeId } = req.params
 
   const appoiment = await Appoiment.findOneAndUpdate({ _id, $or: [{ clientId }, { employeeId }] }, update)
 
   if (!appoiment) return res.status(404).send()
-  res.status(200).send(appoiment)
+  res.redirect('back')
 }
 
 exports.deleteAppoiment = async (req, res) => {
@@ -64,4 +66,14 @@ exports.deleteAppoiment = async (req, res) => {
 
   if (!appoiment) return res.status(404).send()
   res.status(200).send()
+}
+
+exports.setToActive = async (req, res) => {
+  const { id } = req.body
+
+  const appoiment = await Appoiment.findByIdAndUpdate(id, { active: true })
+
+  if (!appoiment) res.status(404).send()
+
+  res.status(200).send(appoiment)
 }

@@ -12,8 +12,29 @@ exports.getEmpPrivateProfile = async (req, res) => {
   const locations = await Locations.find({ userId: id })
   const appoiments = await Appoiment.find({ employeeId: id }).populate('clientId')
   const ratings = await Raiting.find({ employeeId: id })
+  const defaultLocation = await Locations.findOne({ userId: id, default: true })
 
-  res.render('user/emp-private-profile.hbs', { user, occupation, locations, appoiments, ratings })
+  const activeAppoiments = appoiments.filter(({ date }) => moment(date).isAfter(moment()))
+
+  activeAppoiments.forEach(appoiment => {
+    appoiment.humanDate = moment().to(appoiment.date)
+  })
+
+  if (defaultLocation) user.defaultAddress = defaultLocation.address
+
+  const locationsData = {
+    locations,
+    areLocations: !!locations.length
+  }
+
+  res.render('user/emp-private-profile.hbs', {
+    user,
+    occupation,
+    locationsData,
+    locations,
+    appoiments: activeAppoiments,
+    ratings
+  })
 }
 
 exports.getPrivateProfile = async (req, res) => {
@@ -22,8 +43,22 @@ exports.getPrivateProfile = async (req, res) => {
   const locations = await Locations.find({ userId: id })
   const appoiments = await Appoiment.find({ clientId: id }).populate('employeeId')
   const ratings = await Raiting.find({ userId: id })
+  const defaultLocation = await Locations.findOne({ userId: id, default: true })
 
-  res.render('user/private-profile', { user, locations, appoiments, ratings })
+  const activeAppoiments = appoiments.filter(({ date }) => moment(date).isAfter(moment()))
+
+  activeAppoiments.forEach(appoiment => {
+    appoiment.humanDate = moment().to(appoiment.date)
+  })
+
+  if (defaultLocation) user.defaultAddress = defaultLocation.address
+
+  const locationsData = {
+    locations,
+    areLocations: !!locations.length
+  }
+
+  res.render('user/private-profile', { user, locationsData, appoiments, ratings, appoiments: activeAppoiments })
 }
 
 exports.getEmpPublicProfile = async (req, res) => {

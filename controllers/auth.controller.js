@@ -49,6 +49,39 @@ exports.createUser = async (req, res, next) => {
   req.login(user, signupRedirect(req, res, next))
 }
 
+exports.editUser = async (req, res) => {
+  const enabledUpdates = [email, name]
+  const updates = {}
+  for (const key in req.body) {
+    if (enabledUpdates.includes(key)) updates[key] = req.body[key]
+  }
+
+  await User.findByIdAndUpdate(req.user.id, updates)
+  if (req.body.password) await User.setPassword(req.body.password)
+
+  res.redirect('/user/profile')
+}
+
+exports.editEmp = async (req, res) => {
+  const { id: userId } = req.user
+  const enabledUpdatesUser = ['email', 'name']
+  const enabledUpdatesOccupations = ['aboutMe', 'type']
+  const updatesOccupations = {}
+  const updatesUser = {}
+
+  for (const key in req.body) {
+    if (enabledUpdatesUser.includes(key)) updatesUser[key] = req.body[key]
+    if (enabledUpdatesOccupations.includes(key)) updatesOccupations[key] = req.body[key]
+  }
+
+  await User.findByIdAndUpdate(userId, updatesUser)
+  if (req.body.password) await User.setPassword(req.body.password)
+
+  await Occupation.findOneAndUpdate({ userId }, updatesOccupations)
+
+  res.redirect('/user/emp/profile')
+}
+
 exports.setEmployee = (req, res, next) => {
   req.app.locals.isEmployee = true
   next()

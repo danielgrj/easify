@@ -12,7 +12,7 @@
       <li id="appoiments-button">
         <a>
           <span class="icon is-small"><i class="fas fa-calendar-day"></i></span>
-          <span>Appoiments</span>
+          <span>Appoinments</span>
         </a>
       </li>
       <li id="chart-button">
@@ -24,6 +24,7 @@
     </ul>
   </div>
 </nav>
+<<<<<<< HEAD
 
 <section class="section is-changing is-centered has-text-centered" id="emp-info">
     <div class="columns  is-centered has-text-centered">
@@ -44,6 +45,185 @@
         </div>
       </div>
     </div>
+=======
+<section class="section is-changing" id="emp-info">
+  <div class="container">
+    <div class="columns is-desktop is-centered">
+      <div class="column is-narrow is-flex is-align-centered is-f-column ">
+        <figure class="avatar ">
+          <a class="upload-pic" id="upload-pic">
+            <img src="{{user.avatar}}" alt="{{user.name}}">
+            <div class="avatar-update is-flex is-justify-centered is-align-centered">
+              <p>
+                Update
+                <br>
+                picture
+              </p>
+            </div>
+          </a>
+        </figure>
+        <div class="field has-text-centered">
+          <h2 class="title is-2">{{user.name}}</h2>
+          <div>
+            <p><span>{{occupation.type}}</span></p>
+            <p><span>{{user.email}}</span></p>
+            <p><span id="default-address">{{user.defaultAddress}}</span></p>
+          </div>
+        </div>
+        <div class="field">
+          <button class="button is-warning" id="edit-profile">Edit</button>
+        </div>
+        <div class="field">
+          <button class="button is-info" id='show-locations'>View addresses</button>
+        </div>
+        <div class="field">
+          <a href="/user/emp/{{user._id}}" class="button is-primary">View public profile</a>
+        </div>
+      </div>
+    </div>
+</section>
+<section class="section">
+  <div class="modal" id="edit-card">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Edit information</p>
+        <button class="delete" aria-label="close" id="close-edit"></button>
+      </header>
+      <section class="modal-card-body is-flex is-justify-centered">
+        <form action="/auth/emp/edit" method="post" class="has-text-left">
+          <label for="email" class="label">Name: </label>
+          <div class="control has-icons-left">
+            <input id="name" type="text" name="name" class="input" placeholder="Name" value="{{user.name}}">
+            <span class="icon is-small is-left">
+              <i class="fa fa-user "></i></span>
+          </div>
+          <br>
+          <label for="email" class="label">Email: </label>
+          <div class="control has-icons-left">
+            <input type="email" name="email" id="email" class="input" placeholder="e.g. user@example.com"
+              value="{{user.email}}">
+            <span class="icon is-small is-left">
+              <i class="fa fa-envelope"></i></span>
+          </div>
+          <br>
+          <label for="password" class="label">Password: </label>
+          <div class="control has-icons-left">
+            <input type="password" name="password" id="password" class="input" placeholder="Password">
+            <span class="icon is-small is-left">
+              <i class="fa fa-lock"></i>
+            </span>
+          </div>
+          <div class="field">
+            <label for="type" class="label">Occupation: </label>
+            <div class="select">
+              <select name="type" id="type">
+                <option value="PLUMBER">Plumber</option>
+                <option value="MECHANIC">Mechanic</option>
+                <option value="ELECTRICIST">Electricist</option>
+                <option value="LOCKSMITH">Locksmith</option>
+                <option value="CARETAKER">Caretaker</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control"><textarea class="textarea has-fixed-size" name="aboutMe" id="aboutMe" cols="30"
+                rows="10" value="{{occupation.content}}" placeholder="Tell us a little about yourself"></textarea></div>
+          </div>
+          <div class="field">
+            <div class="control"><input type="submit" value="Send" class="button is-success"></div>
+          </div>
+        </form>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button" id="edit-cancel">Cancel</button>
+      </footer>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="modal" id="locations-card">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Default address</p>
+        <button class="delete" aria-label="close" id="close-locations"></button>
+      </header>
+      <section class="modal-card-body">
+        <div class="field is-grouped">
+          <div class="control ">
+            <div class="select" {{#unless locationsData.areLocations}} style="display: none" {{/unless}}
+              id="select-container">
+              <select name="location" id="locations-select" class="address">
+                {{#each locationsData.locations}}
+                <option value="{{_id}}" {{#if default}} selected {{/if}}>{{address}}</option>
+                {{/each}}
+              </select>
+            </div>
+          </div>
+          <div class="control">
+            <button class="button is-info" id="location-btn">Add</button>
+          </div>
+        </div>
+        <div id="location-container" style="display: none">
+          <div class="box">
+            {{> location}}
+          </div>
+          <div class="field is-grouped">
+            <div class="control">
+              <button class="button is-link" id="location-submit">Add</button>
+            </div>
+            <div class="control">
+              <button class="button is-text" id="location-cancel">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-success" id="set-default">Set as default</button>
+        <button class="button" id="cancel-default">Cancel</button>
+      </footer>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="modal" id="upload-card">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Upload image</p>
+        <button class="delete" aria-label="close" id="close-button"></button>
+      </header>
+      <section class="modal-card-body">
+        <form action="/user/profile/edit/avatar" method="POST" enctype="multipart/form-data">
+          <div class="field is-flex is-justify-center">
+            <div class="file has-name is-boxed">
+              <label class="file-label">
+                <input class="file-input" type="file" name="avatar">
+                <span class="file-cta">
+                  <span class="file-icon">
+                    <i class="fas fa-upload"></i>
+                  </span>
+                  <span class="file-label">
+                    Choose a photo…
+                  </span>
+                </span>
+              </label>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <input type="submit" value="Update avatar" class="button is-success">
+            </div>
+          </div>
+        </form>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button" id="cancel-upload">Cancel</button>
+      </footer>
+    </div>
+  </div>
+>>>>>>> 3d486da4ce4e517b3f836bfa1d82deab655aa310
 </section>
 <section class="section is-changing" id="emp-appoiments" style="display: none ">
   <div class="container">
@@ -60,28 +240,34 @@
             <div class="media-content">
               <div class="content">
                 <p>
+                  You have an appoinment with
+                  <br>
                   <strong>{{clientId.name}}</strong>
                   <br>
-                  <small>{{date}}</small>
+                  <small><strong>{{humanDate}}</strong></small>
                   <br>
                   {{location.address}}
                 </p>
               </div>
               <nav class="level is-mobile">
                 <div class="level-left">
-                  {{#if active}}
-                  <a href="#{{_id}}" class="level-item button is-link danger">
+                  {{#unless active}}
+                  {{#if userConfirm}}
+                  <a class="level-item button is-link danger" id="accept-app" _id="{{_id}}">
                     Accept
                   </a>
-                  <a href="#{{_id}}" class="level-item button is-danger cancel">
+                  <a class="level-item button is-warning edit" id="res-button" _id="{{_id}}">
+                    Reschedule
+                  </a>
+                  <a class="level-item button is-danger cancel" id="cancel-app" _id="{{_id}}">
                     Cancel
                   </a>
-                  <a href="#{{_id}}" class="level-item button is-danger edit">
-                    Edit
-                  </a>
+                  {{else}}
+                  <span class="level-item tag is-primary is-medium">Pending confirmation</span>
+                  {{/if}}
                   {{else}}
                   <span class="level-item tag is-primary is-medium">Accepted</span>
-                  {{/if}}
+                  {{/unless}}
                 </div>
               </nav>
             </div>
@@ -89,6 +275,42 @@
         </div>
       </div>
       {{/each}}
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="modal" id="appoinment-card">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Reschedule appoinment</p>
+        <button class="delete" aria-label="close" id="close-edit-appoinment"></button>
+      </header>
+      <section class="modal-card-body">
+        <form action="/appoiments/{{user.id}}" method="post">
+          <input type="hidden" name="_id" value="" id="appoinment-id">
+          <div class="field">
+            <label for="date" class="label">Date: </label>
+            <div class="control">
+              <div class="control has-icons-left">
+                <input type="date" name="date" id="date" class="input is-danger" value="{{date}}">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-calendar"></i>
+                </span>
+              </div>
+              <p class="help is-danger" id="date-helper">Please select a date</p>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <button class="button is-success" id="edit-appoinment-button">Save changes</button>
+            </div>
+          </div>
+        </form>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button" id="cancel-edit-appoinment">Cancel</button>
+      </footer>
     </div>
   </div>
 </section>
@@ -103,8 +325,16 @@
   </div>
 </section>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+<<<<<<< HEAD
 <script src="/js/emp-private-perfil.js"></script>
 <div class="columns  is-centered has-text-centered">
 <a href="/user/emp/{{user._id}}" class="button is-primary">View public profile</a></div>
 </div>
 </section>
+=======
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/js/axios-requests.js"></script>
+<script src="/js/locations.js"></script>
+<script src="/js/chartProfile.js"></script>
+<script src="/js/emp-private-perfil.js"></script>
+>>>>>>> 3d486da4ce4e517b3f836bfa1d82deab655aa310
