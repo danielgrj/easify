@@ -1,0 +1,41 @@
+<nav class="navbar is-transparent">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/search">
+      <p class="encabezado text-dark">Raudo</p>
+    </a>
+    <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+  <div id="navbarExampleTransparentExample" class="navbar-menu ">
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="navbar-item has-dropdown is-hoverable  ">
+          <a class=" picture" href="" style="background-image: url({{currentUser.avatar}})">
+            <a class=" picture" href="">
+              <figure class="avatar image is-128x128"></figure>
+            </a>
+            <div class="navbar-dropdown is-boxed is-right opciones">
+              <a class="navbar-item opciones" href="/user/profile" style="color: black">
+                Profile
+              </a>
+              {{#if currentUser.isEmployee}}
+              <hr class="navbar-divider">
+              <a class="navbar-item" href="/user/emp/profile" style="color: black">
+                Professional profile
+              </a>
+              <a class="navbar-item" href="/user/emp/{{currentUser.id}}" style="color: black">
+                Public Profile
+              </a>
+              {{/if}}
+              <hr class="navbar-divider">
+              <a class="navbar-item" href="/auth/logout" style="color: black">
+                Log Out
+              </a>
+            </div>
+        </div>
+      </div>
+    </div>
+</nav>

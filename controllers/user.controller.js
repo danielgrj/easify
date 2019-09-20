@@ -14,11 +14,28 @@ exports.getEmpPrivateProfile = async (req, res) => {
   const ratings = await Raiting.find({ employeeId: id })
   const defaultLocation = await Locations.findOne({ userId: id, default: true })
 
+  const today = moment().format('YYYY-MM-DD')
+
+  const currentMonthAppoinment = appoiments.filter(({ date }) =>
+    moment(date).isBetween(moment().startOf('month'), moment().endOf('month'))
+  )
+
+  const uniqueDays = currentMonthAppoinment.reduce((accum, { date }) => {
+    if (!accum.includes(moment(date).format('DD'))) accum.push(moment(date).format('DD'))
+    return accum
+  }, [])
+
+  const appoinmentsPerDay = uniqueDays.map(day => {
+    return currentMonthAppoinment.filter(({ date }) => moment(date).format('DD') == day).length
+  })
+
   const activeAppoiments = appoiments.filter(({ date }) => moment(date).isAfter(moment()))
 
   activeAppoiments.forEach(appoiment => {
     appoiment.humanDate = moment().to(appoiment.date)
   })
+
+  activeAppoiments.sort((a, b) => moment(a.date).valueOf() - moment(b.date).valueOf())
 
   if (defaultLocation) user.defaultAddress = defaultLocation.address
 
@@ -33,7 +50,10 @@ exports.getEmpPrivateProfile = async (req, res) => {
     locationsData,
     locations,
     appoiments: activeAppoiments,
-    ratings
+    ratings,
+    today,
+    uniqueDays,
+    appoinmentsPerDay
   })
 }
 
@@ -47,6 +67,10 @@ exports.getPrivateProfile = async (req, res) => {
 
   const activeAppoiments = appoiments.filter(({ date }) => moment(date).isAfter(moment()))
 
+  const today = moment().format('YYYY-MM-DD')
+
+  activeAppoiments.sort((a, b) => moment(b).valueOf() - moment(a).valueOf())
+
   activeAppoiments.forEach(appoiment => {
     appoiment.humanDate = moment().to(appoiment.date)
   })
@@ -58,7 +82,7 @@ exports.getPrivateProfile = async (req, res) => {
     areLocations: !!locations.length
   }
 
-  res.render('user/private-profile', { user, locationsData, appoiments, ratings, appoiments: activeAppoiments })
+  res.render('user/private-profile', { user, locationsData, appoiments, ratings, appoiments: activeAppoiments, today })
 }
 
 exports.getEmpPublicProfile = async (req, res) => {
@@ -72,8 +96,12 @@ exports.getEmpPublicProfile = async (req, res) => {
   const appoiments = await Appoiment.find({ employeeId: id })
   const time = moment(occupation.createdAt).fromNow(true)
   const appoimentsTimes = appoiments.length
+  const today = moment().format('YYYY-MM-DD')
+  const defaultLocation = await Locations.findOne({ userId: id, default: true })
+  const defaultClientLocation = await Locations.findOne({ userId: user.id, default: true })
 
   const locationsData = {
+    today,
     locations,
     areLocations: !!locations.length
   }
@@ -90,7 +118,17 @@ exports.getEmpPublicProfile = async (req, res) => {
     rating.stars = stars
   })
 
-  res.render('user/emp-public-profile', { user, employee, occupation, ratings, locationsData, time, appoimentsTimes })
+  res.render('user/emp-public-profile', {
+    user,
+    employee,
+    occupation,
+    ratings,
+    locationsData,
+    time,
+    appoimentsTimes,
+    defaultLocation,
+    defaultClientLocation
+  })
 }
 
 exports.uploadProfileImage = async (req, res) => {

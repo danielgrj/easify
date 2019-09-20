@@ -7,6 +7,8 @@ const signupRedirect = (req, res, next) => async err => {
 
   if (err) return next(err)
 
+  req.app.locals.currentUser = req.user
+
   if (req.user.isEmployee && !occupation.active) {
     return res.redirect('/auth/emp/comp')
   } else if (req.user.isEmployee) {
@@ -123,6 +125,7 @@ exports.fillOccupation = async (req, res) => {
 
 exports.loginUser = (req, res) => {
   const { isEmployee } = req.user
+  req.app.locals.currentUser = req.user
   if (isEmployee) {
     return res.redirect('/user/emp/profile')
   }

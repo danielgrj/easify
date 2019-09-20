@@ -1,28 +1,5 @@
-<nav>
-  <div class="tabs is-toggle is-toggle-rounded is-centered">
-    <ul>
-      <li class="is-active" id="info-button">
-        <a>
-          <span class="icon is-small"><i class="fas fa-user"></i></span>
-          <span>Info</span>
-        </a>
-      </li>
-      <li id="appoiments-button">
-        <a>
-          <span class="icon is-small"><i class="fas fa-calendar-day"></i></span>
-          <span>Appoinments</span>
-        </a>
-      </li>
-      <li id="chart-button">
-        <a>
-          <span class="icon is-small"><i class="fas fa-chart-pie"></i></span>
-          <span>Analitycs</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-</nav>
-<section class="section is-changing" id="emp-info">
+{{> navbar}}
+<section class="section is-changing profile-banner" id="emp-info">
   <div class="container">
     <div class="columns is-desktop is-centered">
       <div class="column is-narrow is-flex is-align-centered is-f-column ">
@@ -39,26 +16,99 @@
           </a>
         </figure>
         <div class="field has-text-centered">
-          <h2 class="title is-2">{{user.name}}</h2>
+          <h2 class="title is-2" style="color: #eee;">{{user.name}}</h2>
           <div>
             <p><span>{{occupation.type}}</span></p>
             <p><span>{{user.email}}</span></p>
             <p><span id="default-address">{{user.defaultAddress}}</span></p>
           </div>
         </div>
+      </div>
+      <div class="column is-4 is-flex is-align-centered is-f-column is-flex is-justify-centered is-align-centered">
         <div class="field">
-          <button class="button is-warning" id="edit-profile">Edit</button>
+          <button class="button is-warning p-button" id="edit-profile">Edit</button>
         </div>
         <div class="field">
-          <button class="button is-info" id='show-locations'>View addresses</button>
+          <button class="button p-button" id='show-locations'>View addresses</button>
         </div>
         <div class="field">
-          <a href="/user/emp/{{user._id}}" class="button is-primary">View public profile</a>
+          <a href="/user/emp/{{user._id}}" class="button is-primary p-button">View public profile</a>
         </div>
       </div>
     </div>
 </section>
-<section class="section">
+<nav>
+  <div class="tabs is-toggle is-toggle-rounded is-centered">
+    <ul>
+      <li id="appoiments-button">
+        <a>
+          <span class="icon is-small"><i class="fas fa-calendar-day"></i></span>
+          <span>Appoinments</span>
+        </a>
+      </li>
+      <li id="chart-button">
+        <a>
+          <span class="icon is-small"><i class="fas fa-chart-pie"></i></span>
+          <span>Analitycs</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<section class="section is-changing" id="emp-appoiments" style="display: none ">
+  <div class="container">
+    <div class="columns is-multiline is-desktop is-flex is-justify-centered">
+      {{#each appoiments}}
+      <div class="column is-8 ">
+        <div class="box">
+          <article class="media">
+            <div class="media-left">
+              <figure class="image is-64x64">
+                <img src="{{clientId.avatar}}" alt="{{clientId.name}}">
+              </figure>
+            </div>
+            <div class="media-content">
+              <div class="content">
+                <p>
+                  You have an appoinment with
+                  <br>
+                  <strong>{{clientId.name}}</strong>
+                  <br>
+                  <small><strong>{{humanDate}}</strong></small>
+                  <br>
+                  {{location.address}}
+                </p>
+              </div>
+              <nav class="level is-mobile">
+                <div class="level-left" id="status-app">
+                  {{#unless active}}
+                  {{#unless employeeConfirmation}}
+                  <a class="level-item button is-info danger" id="accept-app" _id="{{_id}}">
+                    Accept
+                  </a>
+                  <a class="level-item button is-warning edit" id="res-button" _id="{{_id}}">
+                    Reschedule
+                  </a>
+                  <a class="level-item button is-danger cancel" id="cancel-app" _id="{{_id}}">
+                    Cancel
+                  </a>
+                  {{else}}
+                  <span class="level-item tag is-primary is-medium">Pending confirmation</span>
+                  {{/unless}}
+                  {{else}}
+                  <span class="level-item tag is-primary is-medium">Accepted</span>
+                  {{/unless}}
+                </div>
+              </nav>
+            </div>
+          </article>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+<section>
   <div class="modal" id="edit-card">
     <div class="modal-background"></div>
     <div class="modal-card">
@@ -117,7 +167,7 @@
     </div>
   </div>
 </section>
-<section class="section">
+<section>
   <div class="modal" id="locations-card">
     <div class="modal-background"></div>
     <div class="modal-card">
@@ -162,7 +212,7 @@
     </div>
   </div>
 </section>
-<section class="section">
+<section>
   <div class="modal" id="upload-card">
     <div class="modal-background"></div>
     <div class="modal-card">
@@ -200,60 +250,7 @@
     </div>
   </div>
 </section>
-<section class="section is-changing" id="emp-appoiments" style="display: none ">
-  <div class="container">
-    <div class="columns is-desktop">
-      {{#each appoiments}}
-      <div class="column">
-        <div class="box">
-          <article class="media">
-            <div class="media-left">
-              <figure class="image is-64x64">
-                <img src="{{clientId.avatar}}" alt="{{clientId.name}}">
-              </figure>
-            </div>
-            <div class="media-content">
-              <div class="content">
-                <p>
-                  You have an appoinment with
-                  <br>
-                  <strong>{{clientId.name}}</strong>
-                  <br>
-                  <small><strong>{{humanDate}}</strong></small>
-                  <br>
-                  {{location.address}}
-                </p>
-              </div>
-              <nav class="level is-mobile">
-                <div class="level-left">
-                  {{#unless active}}
-                  {{#if userConfirm}}
-                  <a class="level-item button is-link danger" id="accept-app" _id="{{_id}}">
-                    Accept
-                  </a>
-                  <a class="level-item button is-warning edit" id="res-button" _id="{{_id}}">
-                    Reschedule
-                  </a>
-                  <a class="level-item button is-danger cancel" id="cancel-app" _id="{{_id}}">
-                    Cancel
-                  </a>
-                  {{else}}
-                  <span class="level-item tag is-primary is-medium">Pending confirmation</span>
-                  {{/if}}
-                  {{else}}
-                  <span class="level-item tag is-primary is-medium">Accepted</span>
-                  {{/unless}}
-                </div>
-              </nav>
-            </div>
-          </article>
-        </div>
-      </div>
-      {{/each}}
-    </div>
-  </div>
-</section>
-<section class="section">
+<section>
   <div class="modal" id="appoinment-card">
     <div class="modal-background"></div>
     <div class="modal-card">
@@ -268,7 +265,7 @@
             <label for="date" class="label">Date: </label>
             <div class="control">
               <div class="control has-icons-left">
-                <input type="date" name="date" id="date" class="input is-danger" value="{{date}}">
+                <input type="date" name="date" id="date" class="input is-danger" value="{{date}}" min="{{today}}">
                 <span class="icon is-small is-left">
                   <i class="fas fa-calendar"></i>
                 </span>
@@ -291,11 +288,9 @@
 </section>
 <section class="section is-changing" id="emp-chart" style="display: none">
   <div class="container">
-    <div>
-      <h4 class="subtitle is-4">Last Month activity</h4>
-      <div class="">
-        <canvas id="last-month-activity"></canvas>
-      </div>
+    <h4 class="subtitle is-4">Current month activity</h4>
+    <div class="">
+      <canvas id="last-month-activity" width="600"></canvas>
     </div>
   </div>
 </section>
@@ -303,5 +298,9 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/js/axios-requests.js"></script>
 <script src="/js/locations.js"></script>
+<script>
+  const uniqueDays = [{{ uniqueDays }}];
+  const appoinmentsPerDay = [{{ appoinmentsPerDay }}];
+</script>
 <script src="/js/chartProfile.js"></script>
 <script src="/js/emp-private-perfil.js"></script>

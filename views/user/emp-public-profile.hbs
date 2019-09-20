@@ -1,17 +1,18 @@
+{{> navbar}}
 <section class="section wrapper">
   <div class="container ">
     <div class="columns is-centered has-text-centered">
       <div class="column is-narrow is-flex is-align-centered is-f-column">
-        <figure class="image is-128x128 "  style="margin-right: 2em">
+        <figure class="image is-128x128 " style="margin-right: 2em">
           <img src="{{employee.avatar}}" alt="{{employee.name}}" class="image is-rounded">
         </figure>
         <div class="profile-card js-profile-card" style="margin-top: 1em">
-           <h3 class="title is-2">{{employee.name}}</h3>
-        <h4 class="subtitle is-4">{{occupation.type}}</h4>
+          <h3 class="title is-2">{{employee.name}}</h3>
+          <h4 class="subtitle is-4">{{occupation.type}}</h4>
         </div>
       </div>
     </div>
-    <div class="columns is-mobile has-text-centered	" id="perfilPublicEmp">
+    <div class="columns is-mobile has-text-centered	t-white" id="perfilPublicEmp">
       <div class="column">
         <h2 class="title is-2">{{appoimentsTimes}}</h2>
         <h3 class="subtitle is-3">Consultations</h3>
@@ -34,16 +35,32 @@
 </section>
 <section class="section">
   <div class="centrado ">
-  <div class="is-flex is-justify-centered separado">
-    <a href="#" class="button is-info">View on map</a>
-  </div>
-  <div class="is-flex is-justify-centered separado">
-    <button class="button is-primary" id="appoinment">Book an appoiment</button>
-  </div>
+    <div class="is-flex is-justify-centered separado">
+      <a id="view-map" class="button is-info">View on map</a>
+    </div>
+    <div class="is-flex is-justify-centered separado">
+      <button class="button is-primary" id="appoinment">Book an appoiment</button>
+    </div>
   </div>
 </section>
-
-<section  class="section">
+<section>
+  <div class="modal" id="map-card">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Map</p>
+        <button class="delete" aria-label="close" id="close-map-card"></button>
+      </header>
+      <section class="modal-card-body">
+        <div id="map-emp" style="width: 600px; height: 468px"></div>
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button" id="back-map-button">Back</button>
+      </footer>
+    </div>
+  </div>
+</section>
+<section>
   <div class="container">
     <div class="modal" id="book-card">
       <div class="modal-background"></div>
@@ -53,6 +70,7 @@
           <button class="delete" aria-label="close" id="close"></button>
         </header>
         <section class="modal-card-body">
+          <div id="error-div"></div>
           {{> appoinment locationsData}}
         </section>
         <footer class="modal-card-foot">
@@ -140,10 +158,15 @@
 </section>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/js/axios-requests.js"></script>
+
 <script>
+
+  const place = [{{ defaultLocation.coordinates.lng }}, { { defaultLocation.coordinates.lat } }];
+  const center = [{{ defaultClientLocation.coordinates.lng }}, { { defaultClientLocation.coordinates.lat } }];
   const ratingApi = new apiHandler(window.location.hostname === 'localhost' ? 'http://localhost:3000/ratings/{{employee._id}}' : `${window.location.protocol}//${window.location.hostname}/ratings/{{employee._id}}`);
   const name = '{{ user.name }}';
 </script>
 <script src="/js/ratings.js"></script>
 <script src="/js/locations.js"></script>
+<script src="/js/maps.js"></script>
 <script src="/js/appointments.js"></script>

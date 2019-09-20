@@ -14,7 +14,7 @@ exports.createAppoiment = async (req, res) => {
   const date = moment(dateString)
 
   if (employeeId === clientId) return res.status(403).send()
-  const appoiment = await Appoiment.create({ locationId, employeeId, clientId, date })
+  const appoiment = await Appoiment.create({ locationId, employeeId, clientId, date, clientConfirmation: true })
 
   const text = `
     ${name}, you have booked an appoinment with ${nameEmployee} for the ${dateString}
@@ -23,6 +23,14 @@ exports.createAppoiment = async (req, res) => {
     <br>
     You can see your current appoinments status <a href="${process.env.HOSTURL}/user/profile">
        here
+    </a>
+  `
+  const textEmployee = `
+    ${nameEmployee},  
+    <br>
+    ${name} has just booked an appoinment with you for the ${dateString}. Don't make your client wait, confirm 
+    your attendance directly from your <a href="${process.env.HOSTURL}/user/emp/profile">
+       profile
     </a>
   `
 
@@ -35,15 +43,6 @@ exports.createAppoiment = async (req, res) => {
       <p>${text}</p>
     `
   })
-
-  const textEmployee = `
-    ${nameEmployee},  
-    <br>
-    ${name} has just booked an appoinment with you for the ${dateString}. Don't make your client wait, confirm 
-    your attendance directly from your <a href="${process.env.HOSTURL}/user/emp/profile">
-       profile
-    </a>
-  `
 
   await transport.sendMail({
     from: `"Raudo" <${process.env.EMAIL}>`,
@@ -90,6 +89,7 @@ exports.editAppoiment = async (req, res) => {
       if (key === 'date') update[key] = moment(req.body[key])
     }
   }
+
   const { _id } = req.body
   const { id: clientId } = req.user
   const { id: employeeId } = req.params
@@ -104,17 +104,20 @@ exports.deleteAppoiment = async (req, res) => {
   const { id } = req.user
   const { id: _id } = req.params
 
-  const {
-    clientId: { name, email, _id: clientId },
-    employeeId: { name: employeeName, email: employeeMail, _id: employeeId }
-  } = await Appoiment.findOneAndRemove({ _id, $or: [{ clientId: id }, { employeeId: id }] })
+  appoiment = await Appoiment.findOneAndRemove({ _id, $or: [{ clientId: id }, { employeeId: id }] })
     .populate('clientId')
     .populate('employeeId')
+
+  const {
+    clientId: { name, email, _id: clientId },
+    employeeId: { name: nameEmployee, email: emailEmployee, _id: employeeId },
+    date: dateString
+  } = appoiment
 
   const clientCancelConfirmation = `
     ${name}, you have canceled an appoinment with ${nameEmployee} for the ${dateString}
     <br>
-    We are sorry to hear that. Maybe you want to <a href=${process.env.HOSTURL}/emp/profile/${employeeId} booked an appoinment for a different date.</a>.
+    We are sorry to hear that you will find the right person on Raudo. Maybe you want to <a href=${process.env.HOSTURL}/emp/profile/${employeeId} booked an appoinment for a different date.</a>.
     <br>
     <a href="${process.env.HOSTURL}/search">
       Or search for another person.
@@ -158,7 +161,7 @@ exports.deleteAppoiment = async (req, res) => {
     subject: 'Appoinment cancel',
     text: id == clientId ? clientCancelConfirmation : clientCancelNotify,
     html: `
-      <p>${text}</p>
+      <p>${id == clientId ? clientCancelConfirmation : clientCancelNotify}</p>
     `
   })
 
@@ -168,7 +171,7 @@ exports.deleteAppoiment = async (req, res) => {
     subject: `Appoinment cancel`,
     text: id == employeeId ? employeeCancelConfirmation : employeeCancelNotify,
     html: `
-      <p>${textEmployee}</p>
+      <p>${id == employeeId ? employeeCancelConfirmation : employeeCancelNotify}</p>
     `
   })
 
@@ -177,23 +180,26 @@ exports.deleteAppoiment = async (req, res) => {
 }
 
 exports.confirmAppoinment = async (req, res) => {
-  const { id } = req.body
+  const { id } = req.user
+  const { id: _id } = req.params
 
-  const appoiment = await Appoiment.findById(id, { active: true })
+  const appoiment = await Appoiment.findOne({ _id, $or: [{ clientId: id }, { employeeId: id }] })
 
+  if (!appoiment) res.status(404).send()
   if (appoiment.active) return res.status(400).send()
 
-  if (id === appoiment.employeeId) {
+  console.log('lodelid', id)
+  console.log('lodelappoinment', appoiment.employeeId)
+
+  if (id == appoiment.employeeId) {
     appoiment.employeeConfirmation = true
-  } else if (id === appoiment.clientConfirmation) {
+  } else if (id == appoiment.clientId) {
     appoiment.clientConfirmation = true
   }
 
   if (appoiment.employeeConfirmation && appoiment.clientConfirmation) appoiment.active = true
 
   await appoiment.save()
-
-  if (!appoiment) res.status(404).send()
 
   res.status(200).send(appoiment)
 }

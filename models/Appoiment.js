@@ -19,7 +19,10 @@ const appoimentSchema = new Schema(
     },
     date: Date,
     employeeConfirmation: Boolean,
-    clientConfirmation: Boolean,
+    clientConfirmation: {
+      type: Boolean,
+      default: true
+    },
     active: {
       type: Boolean,
       default: false

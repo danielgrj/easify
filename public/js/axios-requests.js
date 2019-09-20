@@ -30,4 +30,8 @@ class apiHandler {
   setDefault(id, route) {
     return this.api.patch(`${id}/${route}`)
   }
+
+  confirmAppoinment(id) {
+    return this.api.patch(`${id}/confirm`)
+  }
 }
