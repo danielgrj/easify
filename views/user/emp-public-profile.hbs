@@ -161,8 +161,8 @@
 
 <script>
 
-  const place = [{{ defaultLocation.coordinates.lng }}, { { defaultLocation.coordinates.lat } }];
-  const center = [{{ defaultClientLocation.coordinates.lng }}, { { defaultClientLocation.coordinates.lat } }];
+  const place = [{{ defaultLocation.coordinates.lng }}, {{ defaultLocation.coordinates.lat }}];
+  const center = [{{ defaultClientLocation.coordinates.lng }}, {{ defaultClientLocation.coordinates.lat }}];
   const ratingApi = new apiHandler(window.location.hostname === 'localhost' ? 'http://localhost:3000/ratings/{{employee._id}}' : `${window.location.protocol}//${window.location.hostname}/ratings/{{employee._id}}`);
   const name = '{{ user.name }}';
 </script>
