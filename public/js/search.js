@@ -44,7 +44,8 @@ filterButton.onclick = async () => {
 
   occupations.forEach(({ userId, type, content, rating }) => {
     template += `
-    <div class="box">
+    <div class="column is-6">
+      <div class="box">
       <article class="media">
         <div class="media-left is-flex is-align-centered">
           <figure class="avatar is-64x64">
@@ -76,10 +77,11 @@ filterButton.onclick = async () => {
         </div>
       </article>
     </div>
+    </div>
   `
   })
 
-  occupationsContainer.innerHTML = template
+  occupationsContainer.innerHTML = `<div class="columns is-multiline">${template}</div>`
   window.history.pushState(
     {
       rating
