@@ -16,6 +16,6 @@ exports.isLoggedOut = (req, res, next) => {
 }
 
 exports.checkRole = (req, res, next) => {
-  if (req.user.isEmployee) next()
+  if (req.user.isEmployee) return next()
   res.redirect('/user/profile')
 }

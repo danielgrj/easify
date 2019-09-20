@@ -10,6 +10,7 @@ const cancelFilterButton = document.querySelector('#cancel-filter-button')
 const closeButton = document.querySelector('#close-button')
 const filterCard = document.querySelector('#filter-card')
 const occupationsContainer = document.querySelector('#occupations-container')
+const typeInput = document.querySelector('#type-input')
 
 const ratingInput = document.querySelector('#rating')
 
@@ -26,15 +27,25 @@ closeButton.onclick = hideCard
 
 filterButton.onclick = async () => {
   const rating = ratingInput.value
-  const query = `?rating=${rating}`
+  const type = typeInput.value
 
-  const { data: occupations } = await searchApi.getList(query)
+  let occupations
+
+  const query = `?rating=${rating}&occupation=${type}`
+
+  try {
+    const { data } = await searchApi.getList(query)
+    occupations = data
+  } catch (e) {
+    console.log(e)
+  }
 
   let template = ''
 
   occupations.forEach(({ userId, type, content, rating }) => {
     template += `
-    <div class="box">
+    <div class="column is-6">
+      <div class="box">
       <article class="media">
         <div class="media-left is-flex is-align-centered">
           <figure class="avatar is-64x64">
@@ -66,10 +77,11 @@ filterButton.onclick = async () => {
         </div>
       </article>
     </div>
+    </div>
   `
   })
 
-  occupationsContainer.innerHTML = template
+  occupationsContainer.innerHTML = `<div class="columns is-multiline">${template}</div>`
   window.history.pushState(
     {
       rating

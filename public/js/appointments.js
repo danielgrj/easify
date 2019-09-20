@@ -11,11 +11,18 @@ const bookCard = document.querySelector('#book-card')
 const closeBtn = document.querySelector('#close')
 const dateInput = document.querySelector('#date')
 const dateHelper = document.querySelector('#date-helper')
+const errorDiv = document.querySelector('#error-div')
 
-const errorMessage = `
-<div class="notification is-danger">
+const errorAlreadyBooked = `
+<div class="notification is-warning">
   <button class="delete"></button>
   We are sorry but this day and hour is already booked, please select another date.
+</div>
+`
+const errorServer = `
+<div class="notification is-danger">
+  <button class="delete"></button>
+  We are sorry but something went wrong. Our 1000 monkeys with their 1000 code machines are working to solve it.
 </div>
 `
 
@@ -45,11 +52,13 @@ bookBtn.onclick = async () => {
   bookBtn.classList.add('is-loading')
 
   try {
-    const appoinment = await appoinmentsApi.createOne({ date, locationId }, `user/${employeeId}`)
-  } catch (err) {}
-
-  bookBtn.classList.remove('is-loading')
-  bookCard.classList.remove('is-active')
+    await appoinmentsApi.createOne({ date, locationId }, `user/${employeeId}`)
+    bookCard.classList.remove('is-active')
+  } catch (err) {
+    errorDiv.innerHTML = errorServer
+  } finally {
+    bookBtn.classList.remove('is-loading')
+  }
 }
 
 cancelBookBtn.onclick = closeAppoinment

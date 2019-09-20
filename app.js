@@ -1,4 +1,4 @@
-// require('dotenv').config()
+require('dotenv').config()
 
 const path = require('path')
 const express = require('express')
@@ -49,13 +49,27 @@ app.set('view engine', 'hbs')
 hbs.registerPartials(path.join(__dirname, '/views/partials'))
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.use('/', indexRoutes)
-app.use('/', searchRoutes)
 app.use('/auth/', authRoutes)
 app.use('/user', isLoggedIn, userRoutes)
 app.use('/locations', isLoggedIn, locationRoutes)
 app.use('/appoiments', isLoggedIn, appoimentsRoutes)
 app.use('/ratings', isLoggedIn, raitingsRoutes)
+app.use('/', searchRoutes)
+app.use('/', indexRoutes)
+
+app.use((req, res, next) => {
+  const err = new Error('Not Found')
+  err.status = 404
+  next(err)
+})
+
+app.use((err, req, res, next) => {
+  res.status(err.status || 500)
+  res.render('error', {
+    message: err.message,
+    error: {}
+  })
+})
 
 app.listen(process.env.PORT, (req, res) => {
   console.log(`Server is up on http://localhost:${process.env.PORT}`)

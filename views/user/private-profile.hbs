@@ -1,4 +1,5 @@
-<section class="section is-changing" id="emp-info">
+{{> navbar}}
+<section class="section is-changing profile-banner" id="emp-info">
   <div class="container">
     <div class="columns is-desktop is-centered">
       <div class="column is-narrow is-flex is-align-centered is-f-column ">
@@ -15,22 +16,24 @@
           </a>
         </figure>
         <div class="field has-text-centered">
-          <h2 class="title is-2">{{user.name}}</h2>
+          <h2 class="title is-2" style="color: #eee;">{{user.name}}</h2>
           <div>
             <p><span>{{user.email}}</span></p>
             <p><span id="default-address">{{user.defaultAddress}}</span></p>
           </div>
         </div>
+      </div>
+      <div class="column is-4 is-flex is-align-centered is-f-column is-flex is-justify-centered is-align-centered">
         <div class="field">
-          <button class="button is-warning" id="edit-profile">Edit</button>
+          <button class="button is-warning p-button" id="edit-profile">Edit</button>
         </div>
         <div class="field">
-          <button class="button is-info" id='show-locations'>View addresses</button>
+          <button class="button is-info p-button" id='show-locations'>View addresses</button>
         </div>
       </div>
     </div>
 </section>
-<section class="section">
+<section>
   <div class="modal" id="edit-card">
     <div class="modal-background"></div>
     <div class="modal-card">
@@ -73,7 +76,7 @@
     </div>
   </div>
 </section>
-<section class="section">
+<section>
   <div class="modal" id="locations-card">
     <div class="modal-background"></div>
     <div class="modal-card">
@@ -118,7 +121,7 @@
     </div>
   </div>
 </section>
-<section class="section">
+<section>
   <div class="modal" id="upload-card">
     <div class="modal-background"></div>
     <div class="modal-card">
@@ -158,14 +161,14 @@
 </section>
 <section class="section is-changing" id="emp-appoiments">
   <div class="container">
-    <div class="columns is-desktop">
+    <div class="columns is-desktop is-multiline is-desktop is-flex is-justify-centered">
       {{#each appoiments}}
-      <div class="column">
+      <div class="column is-8">
         <div class="box">
           <article class="media">
             <div class="media-left">
               <figure class="image is-64x64">
-                <img src="{{clientId.avatar}}" alt="{{clientId.name}}">
+                <img src="{{employeeId.avatar}}" alt="{{employeeId.name}}">
               </figure>
             </div>
             <div class="media-content">
@@ -206,7 +209,7 @@
     </div>
   </div>
 </section>
-<section class="section">
+<section>
   <div class="modal" id="appoinment-card">
     <div class="modal-background"></div>
     <div class="modal-card">
