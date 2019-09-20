@@ -4,8 +4,6 @@ const Location = require('./../models/Location')
 const moment = require('moment')
 
 exports.filterOccupations = async (req, res, next) => {
-  // const
-
   const {
     occupation: type,
     lng = [],
@@ -21,17 +19,6 @@ exports.filterOccupations = async (req, res, next) => {
   const [lngMinBound, lngMaxBound] = lng
   const [latMinBound, latMaxBound] = lat
 
-  // location: {
-  //   coordinates: {
-  //     lng: {
-  //       $and: [{ $gte: lngMinBound }, { $lte: lngMaxBound }]
-  //     },
-  //     lat: {
-  //       $and: [{ $gte: latMinBound }, { $lte: latMaxBound }]
-  //     }
-  //   }
-  // }
-
   const queries = {
     rating: {
       $gte: rating
@@ -45,8 +32,6 @@ exports.filterOccupations = async (req, res, next) => {
     .skip(limit * (page - 1))
     .sort(sort)
     .populate('userId')
-
-  console.log(occupations)
 
   req.occupations = occupations
   next()

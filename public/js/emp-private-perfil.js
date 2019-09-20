@@ -1,9 +1,7 @@
 // Emp private perfil
-const infoButton = document.querySelector('#info-button')
 const appoimentsButton = document.querySelector('#appoiments-button')
 const chartButton = document.querySelector('#chart-button')
 
-const empInfo = document.querySelector('#emp-info')
 const empAppoiments = document.querySelector('#emp-appoiments')
 const empChart = document.querySelector('#emp-chart')
 
@@ -86,43 +84,30 @@ editAppoinment.onclick = () => {
 cancelEditAppoinment.onclick = hideAppoinmentCard
 closeEditAppoinment.onclick = hideAppoinmentCard
 
-infoButton.onclick = () => {
-  infoButton.classList.add('is-active')
-  appoimentsButton.classList.remove('is-active')
-  chartButton.classList.remove('is-active')
-
-  empInfo.style.display = ''
-  empAppoiments.style.display = 'none'
-  empChart.style.display = 'none'
-}
-
 appoimentsButton.onclick = () => {
-  infoButton.classList.remove('is-active')
   appoimentsButton.classList.add('is-active')
   chartButton.classList.remove('is-active')
 
-  empInfo.style.display = 'none'
   empAppoiments.style.display = ''
   empChart.style.display = 'none'
 }
 
 chartButton.onclick = () => {
-  infoButton.classList.remove('is-active')
   appoimentsButton.classList.remove('is-active')
   chartButton.classList.add('is-active')
 
-  empInfo.style.display = 'none'
   empAppoiments.style.display = 'none'
   empChart.style.display = ''
 }
 
-const appoinmentsApi = new apiHandler(
-  window.location.hostname === 'localhost'
-    ? 'http://localhost:3000/appoiments'
-    : `${window.location.protocol}//${window.location.hostname}/appoiments`
-)
 const dateInput = document.querySelector('#date')
 const dateHelper = document.querySelector('#date-helper')
+const statusAppoinment = document.querySelector('#status-app')
+const appoinmentsApi = new apiHandler(
+  window.location.hostname === 'localhost'
+    ? 'http://localhost:3000/appoiments/'
+    : `${window.location.protocol}//${window.location.hostname}/appoiments/`
+)
 
 dateInput.onchange = () => {
   console.log(dateInput.value)
@@ -134,7 +119,61 @@ dateInput.onchange = () => {
   }
 }
 
-reschuduleButton.onclick = () => {
-  appoinmentCard.classList.add('is-active')
-  appoinmentId.value = reschuduleButton.getAttribute('_id')
+try {
+  reschuduleButton.onclick = ({ target }) => {
+    appoinmentCard.classList.add('is-active')
+    appoinmentId.value = reschuduleButton.getAttribute('_id')
+  }
+
+  editAppoinment.onclick = async ({ target }) => {
+    appoinmentCard.classList.remove('is-active')
+    const id = appoinmentId.value
+    const date = dateInput.value
+
+    target.classList.add('is-loading')
+
+    try {
+      await appoinmentsApi.editOne(id, { date })
+      target.parentElement.innerHTML = `<span class="level-item tag is-primary is-medium">Pending confirmation</span>`
+    } catch (e) {
+      target.classList.remove('is-warning')
+      target.classList.add('is-danger')
+    } finally {
+      target.classList.remove('is-loading')
+    }
+  }
+
+  acceptAppoinment.onclick = async ({ target }) => {
+    const id = target.getAttribute('_id')
+
+    target.classList.add('is-loading')
+
+    try {
+      await appoinmentsApi.confirmAppoinment(id)
+      target.parentElement.innerHTML = `<span class="level-item tag is-primary is-medium">Accepted</span>`
+    } catch (e) {
+      console.log(e)
+    } finally {
+      target.classList.remove('is-loading')
+    }
+  }
+
+  cancelAppoinment.onclick = async ({ target }) => {
+    const id = target.getAttribute('_id')
+    const container = target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement
+
+    target.classList.add('is-loading')
+
+    container.parentElement.removeChild(container)
+
+    try {
+      await appoinmentsApi.deleteOne(id)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      target.classList.remove('is-loading')
+    }
+  }
+} catch (e) {
+  console.log(e)
 }

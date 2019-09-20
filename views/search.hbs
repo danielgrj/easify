@@ -1,4 +1,5 @@
-<section class="section" style="background-color: lightslategray">
+{{> navbar}}
+<section class="section search-container">
   <div class="container">
     <div class="is-flex is-justify-centered">
       <button href="" class="button is-primary filter-button" id="show-filter-button">
@@ -9,11 +10,23 @@
       <div class="modal-background"></div>
       <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">Filter and sort</p>
+          <p class="modal-card-title">Filters</p>
           <button class="delete" aria-label="close" id="close-button"></button>
         </header>
-        <section class="modal-card-body" >
+        <section class="modal-card-body">
           <div class="filters">
+            <div class="field">
+              <label for="type" class="label">Profession</label>
+              <div class="select">
+                <select name="type" id="type-input">
+                  <option value="PLUMBER">Plumber</option>
+                  <option value="MECHANIC">Mechanic</option>
+                  <option value="ELECTRICIST">Electricist</option>
+                  <option value="LOCKSMITH">Locksmith</option>
+                  <option value="CARETAKER">Caretaker</option>
+                </select>
+              </div>
+            </div>
             <div class="field">
               <label for="rating" class="label">Rating: </label>
               <div class="select">
@@ -44,46 +57,48 @@
         </footer>
       </div>
     </div>
-
-<div class="section" >
-  <div class="container" id="occupations-container">
-    {{#each occupations}}
-    <div class="box">
-      <article class="media">
-        <div class="media-left is-flex is-align-centered">
-          <figure class="avatar image is-128x128 is-square	
-">
-            <img src="{{userId.avatar}}" alt="{{userId.name}}" class="is-rounded">
-          </figure>
-        </div>
-        <div class="media-content">
-          <div class="content">
-            <p>
-              <strong>{{userId.name}}</strong>
-              <br>
-              {{type}}
-              <br>
-              {{rating}}
-              <span class="icon is-medium">
-                <i class="fas fa-star"></i>
-              </span>
-              <br>
-              {{content}}
-            </p>
-          </div>
-          <nav class="level is-mobile">
-            <div class="level-left">
-              <a href="/user/emp/{{userId._id}}" class="level-item button is-info">
-                View profile
-              </a>
+    <div class="section">
+      <div class="container" id="occupations-container">
+        <div class="columns is-multiline">
+          {{#each occupations}}
+          <div class="column is-6">
+            <div class="box">
+              <article class="media">
+                <div class="media-left is-flex is-align-centered">
+                  <figure class="avatar image is-128x128 is-square">
+                    <img src="{{userId.avatar}}" alt="{{userId.name}}" class="is-rounded">
+                  </figure>
+                </div>
+                <div class="media-content">
+                  <div class="content">
+                    <p>
+                      <strong>{{userId.name}}</strong>
+                      <br>
+                      {{type}}
+                      <br>
+                      {{rating}}
+                      <span class="icon is-medium">
+                        <i class="fas fa-star"></i>
+                      </span>
+                      <br>
+                      {{content}}
+                    </p>
+                  </div>
+                  <nav class="level is-mobile">
+                    <div class="level-left">
+                      <a href="/user/emp/{{userId._id}}" class="level-item button is-info">
+                        View profile
+                      </a>
+                    </div>
+                  </nav>
+                </div>
+              </article>
             </div>
-          </nav>
+          </div>
+          {{/each}}
         </div>
-      </article>
+      </div>
     </div>
-    {{/each}}
-  </div>
-</div>
 </section>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="/js/axios-requests.js"></script>
