@@ -225,4 +225,32 @@ color:white;
   padding-top: -10em;
 }
 
+.picture {
+  background-position: center;
+  background-size: cover;
+  border-radius: 100%;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  width: 48px;
+  // background-image: url('../images/img1-min.jpg') ; 
+}
+
+.encabezado{
+ font-size: 2em;
+ font-family: "Helvetica Neue", Helvetica, Arial, sans-serif ;
+ font-weight:bold;
+}
+
+.opciones{
+  color:black
+}
+
+.navbar-item{
+  color: black;
+}
+
 
