@@ -1,4 +1,4 @@
-# Foobar
+# Raudo
 
 Raudo is a webapp that let all kinds of professionals connect with the people that need them
 
