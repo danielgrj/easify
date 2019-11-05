@@ -1,20 +1,19 @@
-const Appoiment = require('./../models/Appoiment')
-const Location = require('./../models/Location')
-const User = require('./../models/User')
-const moment = require('moment')
-const transport = require('./../config/sendMail')
+const Appoiment = require('./../models/Appoiment');
+const User = require('./../models/User');
+const moment = require('moment');
+const transport = require('./../config/sendMail');
 
 exports.createAppoiment = async (req, res) => {
-  const { locationId, date: dateString } = req.body
-  const { id: employeeId } = req.params
-  const { id: clientId, name, email } = req.user
+  const { locationId, date: dateString } = req.body;
+  const { id: employeeId } = req.params;
+  const { id: clientId, name, email } = req.user;
 
-  const { name: nameEmployee, email: emailEmployee } = await User.findById(employeeId)
+  const { name: nameEmployee, email: emailEmployee } = await User.findById(employeeId);
 
-  const date = moment(dateString)
+  const date = moment(dateString);
 
-  if (employeeId === clientId) return res.status(403).send()
-  const appoiment = await Appoiment.create({ locationId, employeeId, clientId, date, clientConfirmation: true })
+  if (employeeId === clientId) return res.status(403).send();
+  const appoiment = await Appoiment.create({ locationId, employeeId, clientId, date, clientConfirmation: true });
 
   const text = `
     ${name}, you have booked an appoinment with ${nameEmployee} for the ${dateString}
@@ -24,7 +23,7 @@ exports.createAppoiment = async (req, res) => {
     You can see your current appoinments status <a href="${process.env.HOSTURL}/user/profile">
        here
     </a>
-  `
+  `;
   const textEmployee = `
     ${nameEmployee},  
     <br>
@@ -32,7 +31,7 @@ exports.createAppoiment = async (req, res) => {
     your attendance directly from your <a href="${process.env.HOSTURL}/user/emp/profile">
        profile
     </a>
-  `
+  `;
 
   await transport.sendMail({
     from: `"Raudo" <${process.env.EMAIL}>`,
@@ -42,7 +41,7 @@ exports.createAppoiment = async (req, res) => {
     html: `
       <p>${text}</p>
     `
-  })
+  });
 
   await transport.sendMail({
     from: `"Raudo" <${process.env.EMAIL}>`,
@@ -52,67 +51,67 @@ exports.createAppoiment = async (req, res) => {
     html: `
       <p>${textEmployee}</p>
     `
-  })
+  });
 
-  res.status(200).send(appoiment)
-}
+  res.status(200).send(appoiment);
+};
 
 exports.getAllAppoiments = user => async (req, res) => {
-  const { id } = req.user
-  let appoiments
+  const { id } = req.user;
+  let appoiments;
 
   if (user === 'employee') {
-    appoiments = await Appoiment.find({ employeeId: id })
+    appoiments = await Appoiment.find({ employeeId: id });
   } else if (user === 'client') {
-    appoiments = await Appoiment.find({ clientId: id })
+    appoiments = await Appoiment.find({ clientId: id });
   }
 
-  res.status(200).send(appoiments)
-}
+  res.status(200).send(appoiments);
+};
 
 exports.getOneAppoiment = async (req, res) => {
-  const { id } = req.user
-  const { id: _id } = req.params
-  const appoiment = await Appoiment.findOne({ _id, $or: [{ clientId: id }, { employeeId: id }] })
+  const { id } = req.user;
+  const { id: _id } = req.params;
+  const appoiment = await Appoiment.findOne({ _id, $or: [{ clientId: id }, { employeeId: id }] });
 
-  if (!appoiment) return res.status(404).send()
+  if (!appoiment) return res.status(404).send();
 
-  res.status(200).send(appoiment)
-}
+  res.status(200).send(appoiment);
+};
 
 exports.editAppoiment = async (req, res) => {
-  const enabledUpdates = ['date', 'locationId']
-  const update = {}
+  const enabledUpdates = ['date', 'locationId'];
+  const update = {};
   for (key in req.body) {
     if (enabledUpdates.includes(key)) {
-      update[key] = req.body[key]
-      if (key === 'date') update[key] = moment(req.body[key])
+      update[key] = req.body[key];
+      if (key === 'date') update[key] = moment(req.body[key]);
     }
   }
 
-  const { _id } = req.body
-  const { id: clientId } = req.user
-  const { id: employeeId } = req.params
+  const { _id } = req.body;
+  const { id: clientId } = req.user;
+  const { id: employeeId } = req.params;
 
-  const appoiment = await Appoiment.findOneAndUpdate({ _id, $or: [{ clientId }, { employeeId }] }, update)
+  const appoiment = await Appoiment.findOneAndUpdate({ _id, $or: [{ clientId }, { employeeId }] }, update);
 
-  if (!appoiment) return res.status(404).send()
-  res.redirect('back')
-}
+  if (!appoiment) return res.status(404).send();
+  res.redirect('back');
+};
 
 exports.deleteAppoiment = async (req, res) => {
-  const { id } = req.user
-  const { id: _id } = req.params
+  const { id } = req.user;
+  const { id: _id } = req.params;
 
   appoiment = await Appoiment.findOneAndRemove({ _id, $or: [{ clientId: id }, { employeeId: id }] })
     .populate('clientId')
-    .populate('employeeId')
+    .populate('employeeId');
 
   const {
     clientId: { name, email, _id: clientId },
     employeeId: { name: nameEmployee, email: emailEmployee, _id: employeeId },
     date: dateString
-  } = appoiment
+  } = appoiment;
 
   const clientCancelConfirmation = `
     ${name}, you have canceled an appoinment with ${nameEmployee} for the ${dateString}
@@ -122,7 +121,7 @@ exports.deleteAppoiment = async (req, res) => {
     <a href="${process.env.HOSTURL}/search">
       Or search for another person.
     </a>
-  `
+  `;
 
   const employeeCancelConfirmation = `
     ${nameEmployee},  
@@ -133,7 +132,7 @@ exports.deleteAppoiment = async (req, res) => {
     To see your current appoinments click <a href="${process.env.HOSTURL}/user/emp/profile">
        here
     </a>
-  `
+  `;
   const clientCancelNotify = `
     ${name}, we are sorry to let you know that ${nameEmployee} has just cancel your appoinment for the ${dateString}
     <br>
@@ -143,7 +142,7 @@ exports.deleteAppoiment = async (req, res) => {
       You can find more experts on Raudo
     </a>
     avaible for your desire date.
-  `
+  `;
 
   const employeeCancelNotify = `
     ${nameEmployee},  
@@ -153,7 +152,7 @@ exports.deleteAppoiment = async (req, res) => {
     To see your current appoinments click <a href="${process.env.HOSTURL}/user/emp/profile">
        here
     </a>
-  `
+  `;
 
   await transport.sendMail({
     from: `"Raudo" <${process.env.EMAIL}>`,
@@ -163,7 +162,7 @@ exports.deleteAppoiment = async (req, res) => {
     html: `
       <p>${id == clientId ? clientCancelConfirmation : clientCancelNotify}</p>
     `
-  })
+  });
 
   await transport.sendMail({
     from: `"Raudo" <${process.env.EMAIL}>`,
@@ -173,33 +172,33 @@ exports.deleteAppoiment = async (req, res) => {
     html: `
       <p>${id == employeeId ? employeeCancelConfirmation : employeeCancelNotify}</p>
     `
-  })
+  });
 
-  if (!appoiment) return res.status(404).send()
-  res.status(200).send()
-}
+  if (!appoiment) return res.status(404).send();
+  res.status(200).send();
+};
 
 exports.confirmAppoinment = async (req, res) => {
-  const { id } = req.user
-  const { id: _id } = req.params
+  const { id } = req.user;
+  const { id: _id } = req.params;
 
-  const appoiment = await Appoiment.findOne({ _id, $or: [{ clientId: id }, { employeeId: id }] })
+  const appoiment = await Appoiment.findOne({ _id, $or: [{ clientId: id }, { employeeId: id }] });
 
-  if (!appoiment) res.status(404).send()
-  if (appoiment.active) return res.status(400).send()
+  if (!appoiment) res.status(404).send();
+  if (appoiment.active) return res.status(400).send();
 
-  console.log('lodelid', id)
-  console.log('lodelappoinment', appoiment.employeeId)
+  console.log('lodelid', id);
+  console.log('lodelappoinment', appoiment.employeeId);
 
   if (id == appoiment.employeeId) {
-    appoiment.employeeConfirmation = true
+    appoiment.employeeConfirmation = true;
   } else if (id == appoiment.clientId) {
-    appoiment.clientConfirmation = true
+    appoiment.clientConfirmation = true;
   }
 
-  if (appoiment.employeeConfirmation && appoiment.clientConfirmation) appoiment.active = true
+  if (appoiment.employeeConfirmation && appoiment.clientConfirmation) appoiment.active = true;
 
-  await appoiment.save()
+  await appoiment.save();
 
-  res.status(200).send(appoiment)
-}
+  res.status(200).send(appoiment);
+};
