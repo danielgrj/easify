@@ -2,10 +2,19 @@ const { model, Schema } = require('mongoose')
 
 const locationSchema = new Schema(
   {
-    address: String,
+    address: {
+      type: String,
+      required: true
+    },
     coordinates: {
-      lat: Number,
-      lng: Number
+      lat: {
+        type: Number,
+        required: true
+      },
+      lng: {
+        type: Number,
+        required: true
+      }
     },
     userId: {
       type: Schema.Types.ObjectId,
